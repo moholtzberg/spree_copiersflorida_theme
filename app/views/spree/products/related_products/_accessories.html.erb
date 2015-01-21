@@ -1,0 +1,30 @@
+<% if product.has_related_products?("accessories") %>
+	
+	<div class="relatedSupplies panel panel-default">
+		
+		<div class="panel-heading">
+			<div class="panel-title">
+				<a href="#relatedSupplies" data-toggle="collapse" data-parent="#accordian" data-target="#relatedSupplies">Accessories</a>
+			</div>
+		</div>
+		
+		<ul class="list-group">
+		<% product.accessories.each do |r| %>
+			<li class="list-group-item row no-margin-left no-margin-right no-padding-left no-padding-right">
+					
+					<div class="col-md-8">
+						<%= r.name %>
+					</div>
+					
+					
+					<div class="col-md-4 text-right">
+						<%= render :partial => "mini_cart_form", :locals => {:product => r} %>
+					</div>
+					
+				</li>
+		<% end %>
+		</ul>
+		
+	</div>
+
+<% end %>

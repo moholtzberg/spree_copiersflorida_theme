@@ -1,0 +1,13 @@
+<% if !@product.taxons.blank? %>
+	<div id="taxon-crumbs" data-hook class="col-md-4">
+		<h4 class="product-section-title"><%= Spree.t(:look_for_similar_items) %></h4>
+		
+		<div data-hook="product_taxons">
+			
+			<% @product.taxons.each do |taxon| %>
+				<%= link_to taxon.name, seo_url(taxon) , :class => "label label-primary label-lg"%>
+			<% end %>
+		</div>
+		
+	 </div>
+<% end %>

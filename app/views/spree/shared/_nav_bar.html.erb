@@ -1,0 +1,30 @@
+<div id="nav_bar" class="row">
+			
+	<div class="header-top-left">
+		<ul class="list-inline hidden-xs">
+			
+			<li><a href="/about">About Us</a></li>
+			
+			<li><a href="/contact">Contact Us</a></li>
+			
+			<li><a href="/help">Need Help?</a></li>
+			
+		</ul>
+		
+		<ul class="list-inline visible-xs">
+			<li class="phone"><i class="fa fa-phone"></i> (800) 436-2877</li>
+		</ul>
+	</div>
+	
+	<div class="header-top-right">
+		<ul class="list-inline">
+			<% if spree_current_user %>
+			<li><%= link_to Spree.t(:my_account), "/account" %></li>
+			<li><%= link_to Spree.t(:logout), spree_logout_path %></li>
+			<% else %>
+			<li><%= link_to Spree.t(:login), spree_login_path %> or <%= link_to Spree.t(:create_a_new_account), spree_signup_path %></li>
+			<% end %>
+		</ul>
+	</div>
+		
+</div>

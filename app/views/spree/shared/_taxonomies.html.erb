@@ -1,0 +1,32 @@
+<% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+<nav id="taxonomies" data-hook>
+	<% @taxonomies.each do |taxonomy| %>
+	<div class="panel panel-default no-margin-left no-margin-right">
+		
+		<% cache [I18n.locale, taxonomy, max_level] do %>
+			
+			<div class='taxonomy-root panel-heading'>
+				<%= Spree.t(:shop_by_taxonomy, :taxonomy => taxonomy.name) %>
+			</div>
+			
+			<ul class="list-group">
+				
+				
+				<% taxonomy.root.children.map do |taxon| %>
+					<% css_class = (@taxon && @taxon.self_and_ancestors.include?(taxon)) ? 'active' : nil %>
+					<li class="list-group-item <%= css_class %>">
+						<%= link_to taxon.name, seo_url(taxon) %>
+						
+						<% unless (max_level - 1) < 1 || taxon.children.empty? %>
+							<!-- TODO: code for drop-down goes here -->
+						<% end %>
+						
+					</li>
+				<% end %>
+			</ul>
+			
+		<% end %>
+		
+	</div>
+	<% end %>
+</nav>

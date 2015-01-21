@@ -1,0 +1,80 @@
+<%# filters = @taxon ? @taxon.applicable_filters : [Spree::Core::ProductFilters.taxons_below(Spree::Taxon.find_by_name("Product Type"))] %>
+<% filters = @taxon ? @taxon.applicable_filters : [Spree::Core::ProductFilters.taxons_below(Spree::Taxon.find_by_name("Brand"))] %>
+<% unless filters.empty? %>
+	
+	<%= form_tag '', :method => :get, :class => "form-group", :id => 'sidebar_products_search' do %>
+		<%= hidden_field_tag 'per_page', params[:per_page] %>
+		
+		<% filters.each do |filter| %>
+			<% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
+			<% next if labels.empty? %>
+		
+			<div class="filters panel panel-default no-margin-left no-margin-right" data-hook="navigation">
+			
+				<div class="panel-heading">
+				
+					<div class="panel-title">Product Type</div>
+				
+				</div>
+			
+				<div class="panel-body">
+				
+				<% labels.each do |nm,val| %>
+					<% label = "#{filter[:name]}_#{nm}".gsub(/\s+/,'_') %>
+					<input type="checkbox" id="<%= label %>" name="search[<%= filter[:scope].to_s %>][]" value="<%= val %>"
+					<%= params[:search] && params[:search][filter[:scope]] && params[:search][filter[:scope]].include?(val.to_s) ? "checked" : "" %> />				
+					<label class="form-group" for="<%= label %>"><%= nm %></label><br/>
+				<% end %>
+				
+				<br/>
+				
+				<%= submit_tag Spree.t(:search), :name => nil, :class => "btn btn-default" %>
+				
+				</div>
+			
+			</div>
+		<% end %>
+		
+	<% end %>
+	
+<% end %>
+
+<% filters = [Spree::Core::ProductFilters.taxons_below(Spree::Taxon.find_by_name("Feature"))] %>
+<% unless filters.empty? %>
+	
+	<%= form_tag '', :method => :get, :class => "form-group", :id => 'sidebar_products_search' do %>
+		<%= hidden_field_tag 'per_page', params[:per_page] %>
+		
+		<% filters.each do |filter| %>
+			<% labels = filter[:labels] || filter[:conds].map {|m,c| [m,m]} %>
+			<% next if labels.empty? %>
+		
+			<div class="filters panel panel-default no-margin-left no-margin-right" data-hook="navigation">
+			
+				<div class="panel-heading">
+				
+					<div class="panel-title">Product Type</div>
+				
+				</div>
+			
+				<div class="panel-body">
+				
+				<% labels.each do |nm,val| %>
+					<% label = "#{filter[:name]}_#{nm}".gsub(/\s+/,'_') %>
+					<input type="checkbox" id="<%= label %>" name="search[<%= filter[:scope].to_s %>][]" value="<%= val %>"
+					<%= params[:search] && params[:search][filter[:scope]] && params[:search][filter[:scope]].include?(val.to_s) ? "checked" : "" %> />				
+					<label class="form-group" for="<%= label %>"><%= nm %></label><br/>
+				<% end %>
+				
+				<br/>
+				
+				<%= submit_tag Spree.t(:search), :name => nil, :class => "btn btn-default" %>
+				
+				</div>
+			
+			</div>
+		<% end %>
+		
+	<% end %>
+	
+<% end %>

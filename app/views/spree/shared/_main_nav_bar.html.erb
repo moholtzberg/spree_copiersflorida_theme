@@ -1,0 +1,74 @@
+<div id="main_nav_bar" class="row">
+			
+	<div id="header_banner" class="container">
+		
+		<div id="MainLogo" class="col-xs-12 col-sm-4 col-md-3">
+			
+			<a href="/"><%= image_tag("copiersflorida_logo.png", width: "300", class: "logo") %></a>
+			
+		</div>
+			
+		<div id="MainSearchBox" class="hidden-xs col-sm-5 col-md-6">
+			
+			<div class="input-group input-group-lg">
+				<form id="searchBox" accept-charset="UTF-8" action="/products" method="get" role="search">
+					<input type="text" class="form-control input-group" id="keywords" name="keywords" placeholder="Search Over 5,000 Products" value="">
+					<div class="input-group-btn">
+						<button type="submit" class="btn btn-default"><i class="icon-shopping-search"></i> Go</button>
+					</div>
+				</form>
+			</div>
+			
+		</div>
+		
+		<div id="MainPhoneNumber" class="hidden-xs col-xs-12 col-sm-3 col-md-3 text-right">
+			<phone>(855) 436-2877</phone>
+		</div>
+			
+	</div>
+	<nav id="main_nav" class="navbar navbar-default" role="navigation">
+		
+		<div class="navbar-header">
+			
+			<%= link_to "/cart", :id => "cart", :class => "btn btn-success navbar-btn pull-left visible-xs" do %>
+				<i class="fa fa-shopping-cart"></i>
+				<span id="cart_item_count">&nbsp;
+				<% unless current_order.nil? %>
+					<%= pluralize(current_order.item_count, "item") %> in your cart 
+				<% else %>
+					Cart Empty
+				<% end %>
+				</span>
+			<% end %>
+			
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+    	</div>
+		
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<% Spree::Taxon.find_by(:name => "Product Type").children.each do |cat| %>
+					<li><%= link_to(cat.name, seo_url(cat)) %></li>
+				<% end %>
+			</ul>
+			
+			<%= link_to "/cart", :class => "btn btn-success navbar-btn pull-right hidden-xs" do %>
+				<i class="fa fa-shopping-cart"></i>
+				<span id="cart_item_count">&nbsp;
+				<% unless current_order.nil? %>
+					<%= pluralize(current_order.item_count, "item") %> in your cart 
+				<% else %>
+					Cart Empty
+				<% end %>
+				</span>
+			<% end %>
+			
+		</div>
+		
+	</nav>
+	
+</div>

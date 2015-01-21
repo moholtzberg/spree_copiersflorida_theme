@@ -1,0 +1,157 @@
+@import url('http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css');
+@import url('http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700');
+@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+@import url('spree_copiersflorida_theme_products.css.scss');
+html {
+	font-family: sans-serif;
+	background-color: yellow;
+}
+
+body.florida {
+	font-family: 'Ubuntu', sans-serif;
+	margin-top: 2px;
+	background-color: #eee;
+	#main {
+		background-color: rgb(255, 255, 255);
+		margin-top: 3px;
+		border-right: solid 1px rgb(221, 221, 221);
+		border-left: solid 1px rgb(221, 221, 221);
+	}
+	.container {
+		#nav_bar {
+			padding-top: 10px;
+			border-bottom: solid 2px #f8f8f8;
+			/* for min-width of 768px */
+			padding-left: 15px;
+			padding-right: 15px;
+			/* end min-width of 768px */
+			.header-top-left {
+				float: left;
+			}
+			.header-top-right {
+				float: right;
+			}
+		}
+		#main_nav_bar {
+			background-color: #fff;
+			#header_banner {
+				padding-top: 0;
+				padding-bottom: 0;
+				margin-left: 0;
+				margin-right: 0;
+				#MainLogo {
+					padding-top: 10px;
+					padding-bottom: 5px;
+					a {
+						img {
+							width: 100%;
+							height: 100%;
+						}
+					}
+				}
+				#MainSearchBox {
+					padding-top: 15px;
+					padding-bottom: 15px;
+					.input-group {
+						width: 100%;
+						form#searchBox {
+							display: inherit;
+						}
+					}
+				}
+				#MainPhoneNumber {
+					padding-top: 15px;
+					padding-bottom: 15px;
+					phone {
+						height: 34px;
+						font-size: x-large;
+					}
+				}
+				.col-md-3 {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+			#main_nav {
+				border-radius: 0;
+				border-right: 0;
+				border-left: 0;
+			}
+		}
+		#content {
+			@media (min-width: 767px) {
+				min-height: 380px;
+			}
+			background-color: #fff;
+			margin-bottom: 10px;
+			aside {
+				@media (min-width: 767px) {
+					padding-right: 0;
+				}
+			}
+			#center-panel {
+				.page-header {
+					margin: 0 0 5px;
+				}
+			}
+		}
+		footer {
+			.col-md-6 {
+				padding-left: 15px !important;
+				padding-right: 15px;
+			}
+			#footer-bottom {
+				text-align: justify;
+			}
+			background-color: rgb(248, 248, 248);
+			border-top: solid 1px rgb(221, 221, 221);
+			padding-top: 10px;
+		}
+	}
+}
+
+a#cart {
+	@media (max-width: 767px) {
+		margin-left: 15px;
+	}
+}
+
+ul.taxons-list {
+	list-style: none;
+	display: inline;
+}
+
+ul.filter_choices {
+	list-style: none;
+	display: inline;
+}
+
+
+.panel {
+	border-radius: 0;
+	padding: 0;
+	margin: 5px;
+	.panel-heading {
+		margin: 0;
+	}
+}
+
+.thumbnail {
+	border-radius: 0;
+}
+
+.no-padding-left {
+	padding-left: 0 !important;
+}
+.no-padding-right {
+	padding-right: 0 !important;
+}
+.no-margin-left {
+	margin-left: 0 !important;
+}
+.no-margin-right {
+	margin-right: 0 !important;
+}
+.first {
+	margin-left: 0;
+}

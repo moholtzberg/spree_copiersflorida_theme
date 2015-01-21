@@ -1,0 +1,19 @@
+<fieldset id="order_summary" data-hook>
+	<h2 class="page-header"><%= Spree.t(:order_number, :number => @order.number) %></h2>
+	<% if order_just_completed?(@order) %>
+	<strong><%= Spree.t(:thank_you_for_your_order) %></strong>
+	<% end %>
+	
+	<p data-hook="links">
+	<%= link_to Spree.t(:back_to_store), spree.root_path, :class => "btn btn-default" %>
+	<% unless order_just_completed?(@order) %>
+		<% if try_spree_current_user && respond_to?(:spree_account_path) %>
+			<%= link_to Spree.t(:my_account), spree_account_path, :class => "btn btn-default" %>
+		<% end %>
+	<% end %>
+	</p>
+	
+	<div id="order" data-hook>
+	<%= render :partial => 'spree/shared/order_details', :locals => { :order => @order } %>
+	</div>
+</fieldset>

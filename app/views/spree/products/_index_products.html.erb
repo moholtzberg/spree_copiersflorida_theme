@@ -1,0 +1,26 @@
+<div class="row products">
+	<% @taxonomies.first.taxons.each do |t| %>
+	<div class="product col-md-4 ">
+		<div class="panel panel-default">
+			<div class="panel-heading"><%= t.name %></div>
+			<div class="panel-body">
+				<% if !t.icon.nil?%>
+					<%= image_tag(t.icon) %>
+				<% else %>
+					<img src="http://placehold.it/377x250/E23D28/ffffff">
+				<% end %>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item"><%= t.inspect %></a></li>
+				<li class="list-group-item">B&amp;W Copiers</li>
+				<li class="list-group-item">Used Copiers</li>
+			</ul>
+		</div>
+	</div>
+	<% end %>
+	<% Spree::Promotion.active.each do |promo| %>
+		<% promo.products.each do |prd| %>
+			<%= prd.inspect %><br/>
+		<% end %>
+	<% end %>
+</div>

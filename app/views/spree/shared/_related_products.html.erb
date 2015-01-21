@@ -1,0 +1,11 @@
+<% if product.relations.size > 0 %>
+<div class="accessories">
+	
+	<div id="accordian" class="panel-group">
+		
+		<%= render :partial => "spree/products/related_products/accessories", :locals => {:product => @product} %>
+	
+	</div>
+	
+</div>
+<% end %>

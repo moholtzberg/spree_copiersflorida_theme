@@ -1,0 +1,15 @@
+<footer id="footer" class="row" data-hook>
+		
+	<div id="footer-left" class="col-md-6" data-hook>
+		<p>&copy; <%= Time.new.strftime("%Y") %> <%= link_to 'CopiersFlorida.com', 'http://copiersflorida.com/' %></p>
+	</div>
+
+	<div id="footer-right" class="col-md-6" data-hook>
+
+	</div>
+	
+	<div id="footer-bottom" class="col-md-12" data-hook>
+		<%= render :partial => "spree/shared/footer_brands_disclaimer" %>
+	</div>
+	
+</footer>
