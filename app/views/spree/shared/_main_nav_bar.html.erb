@@ -51,8 +51,12 @@
 		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<% Spree::Taxon.find_by(:name => "Product Type").children.each do |cat| %>
-					<li><%= link_to(cat.name, seo_url(cat)) %></li>
+				<% unless Spree::Taxon.find_by(:name => "Product Type").nil? %>
+				
+					<% Spree::Taxon.find_by(:name => "Product Type").children.each do |cat| %>
+						<li><%= link_to(cat.name, seo_url(cat)) %></li>
+					<% end %>
+				
 				<% end %>
 			</ul>
 			
