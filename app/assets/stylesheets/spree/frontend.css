@@ -3,5 +3,5 @@
  * require normalize
  * require spree/frontend/screen
  *=require_tree .
- *= require self
+ * require self
 */
