@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name        = 'spree_copiersflorida_theme'
   s.version     = '2.4.2'
   s.summary     = 'copiersflorida.com theme for spree'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.description = 'Complete theme custom for copiersflorida.com'
   s.required_ruby_version = '>= 1.9.3'
 
   s.author    = 'Moshe Holtzberg / Copiers Florida, LLC'
