@@ -32,7 +32,7 @@
 		
 	</div>
 	
-	<div class="col-md-5 no-padding-right" data-hook="order-shipment">
+	<div class="col-md-4 no-padding-right" data-hook="order-shipment">
 		
 		<div class="panel panel-default no-margin-left">
 			
@@ -42,7 +42,7 @@
 			
 			<div class="panel-body delivery">
 				<% order.shipments.each do |shipment| %>
-				<i class='fa fa-truck'></i>
+				<i class='fa fa-truck fa-lg'></i>
 				<%= Spree.t(:shipment_details, :stock_location => shipment.stock_location.name, :shipping_method => shipment.selected_shipping_rate.name) %>
 				<% end %>
 				<%= render(:partial => 'spree/shared/shipment_tracking', :locals => {:order => order}) if order.shipped? %>
@@ -56,7 +56,7 @@
 		
 	<% end %>
 		
-	<div class="col-md-5 no-padding-left no-padding-right">
+	<div class="col-md-4 no-padding-left no-padding-right">
 		<div class="panel panel-default">
 			
 			<h4 class="panel-heading">
@@ -65,13 +65,13 @@
 			
 			<div class="panel-body payment-info">
 			<% order.payments.valid.each do |payment| %>
-				<%= render payment%><br/>
+				<%= render payment %><br/>
 			<% end %>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-2 no-padding-left">
+	<div class="col-md-4 no-padding-left">
 		<div class="panel panel-default no-margin-right">
 			
 			<h4 class="panel-heading">Order Status</h4>

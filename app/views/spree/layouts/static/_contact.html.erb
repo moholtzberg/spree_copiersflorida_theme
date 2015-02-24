@@ -1,31 +1,42 @@
 <% user = spree_current_user.nil? ? nil : spree_current_user %>
 <div class="col-md-6">
 	
-	<form action="" method="post" >
-		
+	<%= form_tag("/inquiries", method: "post") do%>
+	
 		<div class="form-group">
 			<label for="InputName">Your Name</label>
-			<input type="text" class="form-control" name="InputName" id="InputName" placeholder="Enter Name" value="<% if user && user.billing_address %><%= user.billing_address.full_name %><% end %>" required>
+			<input type="text" class="form-control" name="form_submission[name]" id="name" placeholder="Enter Name" value="<% if user && user.billing_address %><%= user.billing_address.full_name %><% end %>" required>
 		</div>
-		
+	
 		<div class="form-group">
 			<label for="InputEmail">Your Email</label>
-			<input type="email" class="form-control" id="InputEmail" name="InputEmail" placeholder="Enter Email" value="<%= user.email unless !user %>" required  >
+			<input type="email" class="form-control" id="email" name="form_submission[email]" placeholder="Enter Email" value="<%= user.email unless !user %>" required  >
 		</div>
 		
+		<% if user.orders %>
+			<div class="form-group">
+				<label for="SelectOrder">Select an Order</label>
+				<select class="form-control" id="order" name="form_submission[order]" >
+				<% user.orders.each do |o| %>
+					<option id="<%= o.id %>"><%= "#{o.number} - $#{o.total}  -  #{o.created_at.strftime('%m/%d/%Y')}" %></option>
+				<% end %>
+				</select>
+			</div>
+		<% end %>
+	
 		<div class="form-group">
 			<label for="InputMessage">Message</label>
-			<textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
+			<textarea name="form_submission[message]" id="message" class="form-control" rows="5" required></textarea>
 		</div>
-		
+	
 		<div class="form-group">
 			<label for="InputReal">What is 4+3? (Simple Spam Checker)</label>
-			<input type="text" class="form-control" name="InputReal" id="InputReal" required>
+			<input type="text" class="form-control" name="form_submission[is_human]" id="is_human" required>
 		</div>
-		
+	
 		<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
-		
-	</form>
+	
+	<% end %>
 	
 </div>
 

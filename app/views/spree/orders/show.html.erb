@@ -5,7 +5,7 @@
 	<% end %>
 	
 	<p data-hook="links">
-	<%= link_to Spree.t(:back_to_store), spree.root_path, :class => "btn btn-default" %>
+	<%# link_to Spree.t(:back_to_store), spree.root_path, :class => "btn btn-default" %>
 	<% unless order_just_completed?(@order) %>
 		<% if try_spree_current_user && respond_to?(:spree_account_path) %>
 			<%= link_to Spree.t(:my_account), spree_account_path, :class => "btn btn-default" %>

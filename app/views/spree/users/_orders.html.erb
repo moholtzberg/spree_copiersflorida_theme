@@ -1,17 +1,3 @@
-<h2 class="page-header"><%= accurate_title %></h2>
-
-<div data-hook="account_summary" class="account-summary">
-	<dl id="user-info">
-		<dt><%= Spree.t(:email) %></dt>
-		<dd><%= @user.email %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dd>
-	</dl>
-</div>
-
-<%# @user.credit_cards.each do |cc| %>
-	<%# cc.inspect %>
-	<%# "#{cc.cc_type} - #{cc.last_digits} #{cc.month}/#{cc.year} " %><%# if cc.default %><%# end %>
-<%# end %>
-
 <div data-hook="account_my_orders" class="account-my-orders">
 
   <h3><%= Spree.t(:my_orders) %></h3>
@@ -36,6 +22,10 @@
           <td class="order-payment-state"><%= Spree.t("payment_states.#{order.payment_state}").titleize if order.payment_state %></td>
           <td class="order-shipment-state"><%= Spree.t("shipment_states.#{order.shipment_state}").titleize if order.shipment_state %></td>
           <td class="order-total"><%= order.display_total %></td>
+		<td class="order-total"><%= order.item_total %></td>
+		<td class="order-total"><%= order.total %></td>
+		<td class="order-total"><%= order.payment_total %></td>
+		<td class="order-total"><%= order.shipment_total %></td>
         </tr>
       <% end %>
       </tbody>
@@ -43,6 +33,4 @@
   <% else %>
     <p><%= Spree.t(:you_have_no_orders_yet) %></p>
   <% end %>
-  <br />
-
 </div>

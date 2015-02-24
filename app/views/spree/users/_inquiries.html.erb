@@ -1,0 +1,30 @@
+<div data-hook="account_my_inquiries" class="account-my-inquiries">
+	<h3><%= Spree.t(:my_inquiries) %></h3>
+	
+	<table class="table">
+		
+		<thead>
+			<tr>
+				<th class="order-number"><%= Spree.t(:name) %></th>
+				<th class="order-date"><%= Spree.t(:email) %></th>
+				<th class="order-status"><%= Spree.t(:inquiry_date) %></th>
+				<th class="order-payment-state"><%= Spree.t(:message_body) %></th>
+				<th class="order-shipment-state"><%= Spree.t(:complete) %></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		<% @user.inquiries.each do |f| %>
+			<tr class="<%= cycle('even', 'odd') %>">
+				<td><%= f.name %></td>
+				<td><%= f.email %></td>
+				<td><%= f.created_at.strftime("%m/%d/%Y") %></td>
+				<td><%= f.message %></td>
+				<td><% if f.complete %>Yes<% else %>No<% end %></td>
+			</tr>
+		<% end %>
+		</tbody>
+		
+	</table>
+	
+</div>

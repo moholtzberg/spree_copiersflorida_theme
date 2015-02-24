@@ -1,0 +1,60 @@
+<% content_for :page_title do %>
+	<%= Spree.t('inquiries') %>
+<% end %>
+
+<% content_for :table_filter_title do %>
+	<%= Spree.t('search') %>
+<% end %>
+
+<% content_for :table_filter do %>
+
+<%- end -%>
+
+
+<% if @reviews.any? %>
+	<table class="index">
+		<colgroup>
+			<col style="width: 30%;">
+			<col style="width: 45%;">
+			<col style="width: 5%;">
+			<col style="width: 5%;">
+			<col style="width: 15%;">
+		</colgroup>
+		<thead>
+			<tr>
+				<th><%= Spree.t('Name') %></th>
+				<th><%= Spree.t("Email") %></th>
+				<th><%= Spree.t("Viewed") %></th>
+				<th><%= Spree.t("Complete") %></th>
+				<th><%= Spree.t("Created At") %></th>
+			</tr>
+		</thead>
+		<tbody>
+		<%- @reviews.each do |review| -%>
+			<tr>
+				<td>
+					<% if review %>
+						<%= link_to review.name, admin_inquiry_path(review) %>
+					<% end %>
+				</td>
+				<td class="align-center">
+					<%= review.email %>
+				</td>
+				<td>
+					<%= review.complete %>
+				</td>
+				<td>
+					<%= review.viewd %>
+				</td>
+				<td class="align-center">
+					<%= l review.created_at, :format => :short %>
+				</td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
+<% else %>
+	<div class="no-objects-found">
+		<%= Spree.t(:no_results) %>
+	</div>
+<% end %>

@@ -1,0 +1,23 @@
+<% content_for :page_title do %>
+	<%= Spree.t('inquiry') %> <%= @form.id %>
+<% end %>
+
+<% content_for :table_filter_title do %>
+	<%= Spree.t('search') %>
+<% end %>
+
+<% content_for :table_filter do %>
+
+<%- end -%>
+
+
+<strong>FROM:</strong> <%= @form.email %><br/>
+<strong>BY:</strong> <%= link_to @form.name, admin_user_path(@form.user.id) %><br/>
+<strong>ON:</strong> <%= @form.created_at.strftime("%m/%d/%Y") %><br/>
+<% if @form.order_id %>
+<strong>ORDER:</strong> <%= @form.order.number %><br/>
+<% end %>
+<strong>MESSAGE BODY:</strong> <%= @form.message %><br/>
+<% unless @form.complete %>
+	<%= link_to "Mark Complete", admin_inquiry_update_path(@form.id) %>
+<% end %>

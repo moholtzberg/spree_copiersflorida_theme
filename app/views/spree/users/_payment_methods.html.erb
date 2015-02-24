@@ -1,0 +1,30 @@
+<div data-hook="account_my_inquiries" class="account-my-inquiries">
+	<h3><%= Spree.t(:payment_methods) %></h3>
+	
+	<table class="table">
+		
+		<thead>
+			<tr>
+				<th class="order-number"><%= Spree.t(:type) %></th>
+				<th class="order-date"><%= Spree.t(:last_digits) %></th>
+				<th class="order-status"><%= Spree.t(:month) %></th>
+				<th class="order-payment-state"><%= Spree.t(:year) %></th>
+				<th class="order-shipment-state"><%= Spree.t(:is_default) %></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		<% @user.credit_cards.each do |f| %>
+			<tr class="<%= cycle('even', 'odd') %>">
+				<td><%= f.cc_type %></td>
+				<td><%= f.last_digits %></td>
+				<td><%= f.month %></td>
+				<td><%= f.year %></td>
+				<td><% if f.default %>Yes<% else %>No<% end %></td>
+			</tr>
+		<% end %>
+		</tbody>
+		
+	</table>
+	
+</div>

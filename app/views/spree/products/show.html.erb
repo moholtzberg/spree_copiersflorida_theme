@@ -22,6 +22,10 @@
 				<%= render :partial => 'properties' %>
 			</div>
 			
+			<% @product.documents.each do |doc| %>
+				<%= link_to doc.alt, doc.attachment_file_name %>
+			<% end %>
+			
 		</div>
 		
 	</div>
