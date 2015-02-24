@@ -1,7 +1,8 @@
 <% user = spree_current_user.nil? ? nil : spree_current_user %>
 <div class="col-md-6">
 	
-	<%= form_tag("/inquiries", method: "post") do %>
+	<%# form_tag("/inquiries", method: "post") do %>
+	<form action="/inquiries" method="post">
 	
 		<div class="form-group">
 			<label for="InputName">Your Name</label>
@@ -35,8 +36,8 @@
 		</div>
 	
 		<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
-	
-	<% end %>
+	</form>
+	<%# end %>
 	
 </div>
 
