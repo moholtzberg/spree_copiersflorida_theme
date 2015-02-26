@@ -51,13 +51,23 @@
 		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<% unless Spree::Taxon.find_by(:name => "Product Type").nil? %>
 				
-					<% Spree::Taxon.find_by(:name => "Product Type").children.each do |cat| %>
-						<li><%= link_to(cat.name, seo_url(cat)) %></li>
+				<% Spree::Page.by_store(current_store).visible.header_links.each do |page| %>
+					<% if page.foreign_link.present? %>
+						<li><%= link_to page.title, page.foreign_link, target: '_blank', ref: 'nofollow' %></li>
+					<% else %>
+						<% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s == '/' ? page.slug : Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
+						<li class="<%= 'current' if (request.fullpath.gsub('//','/') == page_uri) %>"><%= link_to page.title, page_uri, ref: 'nofollow' %></li>
 					<% end %>
-				
 				<% end %>
+				
+				<%# unless Spree::Taxon.find_by(:name => "Product Type").nil? %>
+				
+					<%# Spree::Taxon.find_by(:name => "Product Type").children.each do |cat| %>
+						<%# link_to(cat.name, seo_url(cat)) %>
+					<%# end %>
+				
+				<%# end %>
 			</ul>
 			
 			<%= link_to "/cart", :class => "btn btn-success navbar-btn pull-right hidden-xs" do %>

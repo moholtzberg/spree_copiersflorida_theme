@@ -3,11 +3,14 @@
 	<div class="header-top-left">
 		<ul class="list-inline hidden-xs">
 			
-			<li><a href="/about">About Us</a></li>
-			
-			<li><a href="/contact">Contact Us</a></li>
-			
-			<li><a href="/help">Need Help?</a></li>
+			<% Spree::Page.by_store(current_store).visible.sidebar_links.each do |page| %>
+				<% if page.foreign_link.present? %>
+					<li><%= link_to page.title, page.foreign_link, target: '_blank', ref: 'nofollow' %></li>
+				<% else %>
+					<% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s == '/' ? page.slug : Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
+					<li class="<%= 'current' if (request.fullpath.gsub('//','/') == page_uri) %>"><%= link_to page.title, page_uri, ref: 'nofollow' %></li>
+				<% end %>
+			<% end %>
 			
 		</ul>
 		
