@@ -43,7 +43,7 @@
 		<% unless found_brand.nil?%>
 	
 			<%= link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-4") do %>
-				<%= image_tag(found_brand.icon(:normal), :class => "logo") %>
+				<%= image_tag(found_brand.icon(:normal), :class => "logo #{cycle('pull-right', '','pull-left')}") %>
 			<% end %>
 			
 		<% end %>
