@@ -22,12 +22,31 @@
 
 <div class="col-md-12 logos">
 	
-	<% Spree::Taxon.find_by(:name => "Brand").children.each do |brand| %>
+	<% ["Brother", "Canon", "Copystar", "Epson"].each do |brand| %>
+
+		<% found_brand = Spree::Taxon.find_by(:name => brand) %>
+		
+		<% unless found_brand.nil?%>
 	
-		<%= link_to(seo_url(brand), :class => "logo col-sm-4 col-md-3") do %>
-			<%= image_tag(brand.icon(:normal), :class => "logo") %>
+			<%= link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-3") do %>
+				<%= image_tag(found_brand.icon(:normal), :class => "logo") %>
+			<% end %>
+			
 		<% end %>
 		
 	<% end %>
 	
+	<% ["HP", "Konica Minolta", "3M"].each do |brand| %>
+
+		<% found_brand = Spree::Taxon.find_by(:name => brand) %>
+		
+		<% unless found_brand.nil?%>
+	
+			<%= link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-4") do %>
+				<%= image_tag(found_brand.icon(:normal), :class => "logo") %>
+			<% end %>
+			
+		<% end %>
+		
+	<% end %>
 </div>
