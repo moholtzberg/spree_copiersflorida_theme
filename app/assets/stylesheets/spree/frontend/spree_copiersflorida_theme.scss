@@ -158,8 +158,15 @@ ul.filter_choices {
 	a.logo {
 		text-align: center;
 		padding: 5px;
+	}
+	a.logo.col-md-3 {
 		img.logo {
-			margin: 10px;
+			height: 35px;
+		}
+	}
+	a.logo.col-md-4 {
+		img.logo {
+			height: 50px;
 		}
 	}
 }
