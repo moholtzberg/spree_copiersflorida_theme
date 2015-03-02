@@ -6,9 +6,9 @@
 <% Spree::Taxon.find_by(:name => "Product Type").children.each do |brand| %>
 <div class="col-md-3 col-sm-4">
 	<div class="panel panel-default">
-		<%= link_to(seo_url(brand), :class => "") do %>
+		<%= link_to(seo_url(brand)) do %>
 		<div class="panel-body text-center">
-			<%= image_tag(brand.icon(:normal), :class => "") %>
+			<%= image_tag(brand.icon(:normal), :class => "product_type_showcase") %>
 		</div>
 		<div class="panel-footer">
 			Shop <%= brand.name %>
