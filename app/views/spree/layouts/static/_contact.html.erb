@@ -12,7 +12,7 @@
 			<input type="email" class="form-control" id="email" name="form_submission[email]" placeholder="Enter Email" value="<%= user.email unless !user %>" required  >
 		</div>
 		
-		<% if user.orders %>
+		<% if user && user.orders %>
 			<div class="form-group">
 				<label for="SelectOrder">Select an Order</label>
 				<select class="form-control" id="order" name="form_submission[order]" >
@@ -20,6 +20,11 @@
 					<option id="<%= o.id %>"><%= "#{o.number} - $#{o.total}  -  #{o.created_at.strftime('%m/%d/%Y')}" %></option>
 				<% end %>
 				</select>
+			</div>
+		<% else %>
+			<div class="form-group">
+				<label for="InputOrder">Order Number</label>
+				<input type="text" name="form_submission[order]" id="order" class="form-control" rows="5">
 			</div>
 		<% end %>
 	
