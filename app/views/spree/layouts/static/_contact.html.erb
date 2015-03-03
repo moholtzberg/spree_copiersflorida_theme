@@ -1,9 +1,7 @@
 <% user = spree_current_user.nil? ? nil : spree_current_user %>
 <div class="col-md-6">
 	
-	<%# form_tag("/inquiries", method: "post") do %>
-	<form action="/inquiries" method="post">
-	
+	<%= form_tag("/inquiries", method: "post") do %>
 		<div class="form-group">
 			<label for="InputName">Your Name</label>
 			<input type="text" class="form-control" name="form_submission[name]" id="name" placeholder="Enter Name" value="<% if user && user.billing_address %><%= user.billing_address.full_name %><% end %>" required>
@@ -36,8 +34,8 @@
 		</div>
 	
 		<input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
-	</form>
-	<%# end %>
+
+	<% end %>
 	
 </div>
 
