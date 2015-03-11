@@ -2,7 +2,7 @@
 
 
 
-	
+<% if Spree::Taxon.find_by(:name => "Product Type") and !Spree::Taxon.find_by(:name => "Product Type").children.nil? %>	
 <% Spree::Taxon.find_by(:name => "Product Type").children.each do |brand| %>
 <div class="col-md-3 col-sm-4">
 	<div class="panel panel-default">
@@ -16,6 +16,7 @@
 		<% end %>
 	</div>
 </div>
+<% end %>
 <% end %>
 
 <hr/>
