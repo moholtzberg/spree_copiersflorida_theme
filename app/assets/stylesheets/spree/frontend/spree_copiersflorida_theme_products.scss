@@ -6,6 +6,10 @@
 		margin: 0;
 		.panel {
 			margin: 5px;
+			.panel-heading {
+				min-height: 61px;
+				background-color: #fff;
+			}
 			img {
 /*				max-width: 150px;*/
 				height: 110px;

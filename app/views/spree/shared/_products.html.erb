@@ -27,9 +27,10 @@
 	<% url = product_url(product, :taxon_id => @taxon.try(:id)) %>
 	<div id="product_<%= product.id %>" class="product col-md-3" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
 		<div class="panel panel-default <%= cycle("first", "", "", "last", :name => "classes") %>">
+			<div class="panel-heading">
+				<%= link_to truncate(product.name, :length => 40), url, :class => 'info', :itemprop => "name", :title => product.name %>
+			</div>
 			<div class="panel-body">
-				<%= link_to truncate(product.name, :length => 50), url, :class => 'info', :itemprop => "name", :title => product.name %>
-				<hr/>
 				<% cache(@taxon.present? ? [I18n.locale, current_currency, @taxon, product] : [I18n.locale, current_currency, product]) do %>
 					<div class="product-image">
 						<%= link_to small_image(product, :itemprop => "image"), url, :itemprop => 'url' %>
