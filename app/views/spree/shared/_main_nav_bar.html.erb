@@ -50,24 +50,43 @@
     	</div>
 		
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			
+			<ul id="account_links" class="nav navbar-nav list-inline hidden-md hidden-lg hidden-xl">
+				<% if spree_current_user %>
+					<li><%= link_to Spree.t(:my_account), "/account" %></li>
+					<li><%= link_to Spree.t(:logout), spree_logout_path %></li>
+				<% else %>
+					<li><%= link_to Spree.t(:login), spree_login_path %> or <%= link_to Spree.t(:create_a_new_account), spree_signup_path %></li>
+				<% end %>
+			</ul>
+			
 			<ul class="nav navbar-nav">
 				
 				<% Spree::Page.by_store(current_store).visible.header_links.each do |page| %>
 					<% if page.foreign_link.present? %>
-						<li><%= link_to page.title, page.foreign_link, target: '_blank', ref: 'nofollow' %></li>
+					<li><%= link_to page.title, page.foreign_link, target: '_blank', ref: 'nofollow' %></li>
 					<% else %>
-						<% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s == '/' ? page.slug : Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
-						<li class="<%= 'current' if (request.fullpath.gsub('//','/') == page_uri) %>"><%= link_to page.title, page_uri, ref: 'nofollow' %></li>
+					<% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s == '/' ? page.slug : Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
+					<li class="<%= 'current' if (request.fullpath.gsub('//','/') == page_uri) %>"><%= link_to page.title, page_uri, ref: 'nofollow' %></li>
 					<% end %>
 				<% end %>
 				
-				<%# unless Spree::Taxon.find_by(:name => "Product Type").nil? %>
 				
-					<%# Spree::Taxon.find_by(:name => "Product Type").children.each do |cat| %>
-						<%# link_to(cat.name, seo_url(cat)) %>
-					<%# end %>
+				<span class="hidden-md hidden-lg hidden-xl">
+					
+					<li class="nav-divider"></li>
 				
-				<%# end %>
+					<% Spree::Page.by_store(current_store).visible.sidebar_links.each do |page| %>
+						<% if page.foreign_link.present? %>
+						<li><%= link_to page.title, page.foreign_link, target: '_blank', ref: 'nofollow' %></li>
+						<% else %>
+						<% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s == '/' ? page.slug : Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
+						<li class="<%= 'current' if (request.fullpath.gsub('//','/') == page_uri) %>"><%= link_to page.title, page_uri, ref: 'nofollow' %></li>
+						<% end %>
+					<% end %>
+					
+				</span>
+				
 			</ul>
 			
 			<%= link_to "/cart", :class => "btn btn-success navbar-btn pull-right hidden-xs" do %>

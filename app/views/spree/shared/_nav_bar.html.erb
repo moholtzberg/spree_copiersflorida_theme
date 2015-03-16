@@ -1,7 +1,7 @@
-<div id="nav_bar" class="row">
+<div id="nav_bar" class="row hidden-xs hidden-sm">
 			
 	<div class="header-top-left">
-		<ul class="list-inline hidden-xs">
+		<ul class="list-inline">
 			
 			<% Spree::Page.by_store(current_store).visible.sidebar_links.each do |page| %>
 				<% if page.foreign_link.present? %>
@@ -14,9 +14,9 @@
 			
 		</ul>
 		
-		<ul class="list-inline visible-xs">
+		<!-- <ul class="list-inline">
 			<li class="phone"><i class="fa fa-phone"></i> (800) 436-2877</li>
-		</ul>
+		</ul> -->
 	</div>
 	
 	<div class="header-top-right">
@@ -30,4 +30,16 @@
 		</ul>
 	</div>
 		
+</div>
+
+<div id="nav_bar_mobile" class="row hidden-md hidden-lg hidden-xl">
+	
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<ul class="list-inline text-center phone">
+				<li class="phone"><a class="text-center"><i class="fa fa-phone"></i> (800) 436-2877</a></li>
+			</ul>
+		</div>
+	</nav>
+	
 </div>

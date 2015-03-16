@@ -22,9 +22,11 @@
 				<%= render :partial => 'properties' %>
 			</div>
 			
-			<% @product.documents.each do |doc| %>
-				<%= link_to doc.alt, doc.attachment_file_name %>
+			<div class="list-group">
+			<% @product.documents.each do |document| %>
+				<li class="list-group-item"><%= link_to "<i class='fa fa-file fa-fw'></i> #{document.attachment_file_name}".html_safe, document.attachment.url(:product) %></li>
 			<% end %>
+			</div>
 			
 		</div>
 		

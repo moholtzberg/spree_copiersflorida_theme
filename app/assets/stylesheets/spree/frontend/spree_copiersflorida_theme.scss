@@ -170,3 +170,28 @@ ul.filter_choices {
 		}
 	}
 }
+
+#nav_bar_mobile {
+	margin-bottom: 40px;
+	padding: 0;
+}
+
+@media(max-width: 599px) {
+	ul#account_links {
+		background-color: #eeeeee;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+
+ul.phone {
+	margin: 0;
+	li.phone {
+		font-size: x-large;
+		vertical-align: middle;
+		a {
+			vertical-align: -webkit-baseline-middle;
+		}
+	}
+}
