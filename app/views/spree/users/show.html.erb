@@ -11,14 +11,14 @@
 	
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab">Orders</a></li>
-		<li role="presentation"><a href="#inquiries" aria-controls="inquiries" role="tab" data-toggle="tab">Inquiries</a></li>
+		<li role="presentation"><a href="#my_messages" aria-controls="my_messages" role="tab" data-toggle="tab">Inquiries / Messages</a></li>
 		<li role="presentation"><a href="#payment_methods" aria-controls="payment_methods" role="tab" data-toggle="tab">Payment Methods</a></li>
 	</ul>
 	
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="orders"><%= render :partial => "orders", :locals => {:user => @user} %></div>
-		<div role="tabpanel" class="tab-pane" id="inquiries"><%= render :partial => "inquiries", :locals => {:user => @user} %></div>
 		<div role="tabpanel" class="tab-pane" id="payment_methods"><%= render :partial => "payment_methods", :locals => {:user => @user} %></div>
+		<div role="tabpanel" class="tab-pane" id="my_messages"></div>
 	</div>
 	
 </div>
