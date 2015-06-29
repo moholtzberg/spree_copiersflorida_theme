@@ -24,6 +24,7 @@
 				<div id="center-panel" class="col-md-<%= !content_for?(:sidebar) ? "12" : "10" %>" data-hook>
 			
 					<%= flash_messages %>
+
 					<%= yield %>
 			
 				</div>
@@ -39,5 +40,5 @@
 		<%= render :partial => 'spree/shared/google_analytics.js' %>
 	
 	</body>
-
+	<%= yield :javascript %>
 </html>
