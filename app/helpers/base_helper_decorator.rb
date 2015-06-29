@@ -1,5 +1,21 @@
 Spree::BaseHelper.module_eval do
   
+  def flash_messages(opts = {})
+    ignore_types = ["order_completed"].concat(Array(opts[:ignore_types]).map(&:to_s) || [])
+
+    flash.each do |msg_type, text|
+      unless ignore_types.include?(msg_type)
+        if msg_type == "error"
+          concat(content_tag :div, text, class: "alert alert-danger")
+        elsif msg_type == "notice"
+          concat(content_tag :div, text, class: "alert alert-info")
+        end
+        
+      end
+    end
+    nil
+  end
+  
   def breadcrumbs(taxon, separator="")
     return "" if current_page?("/") || taxon.nil?
     
