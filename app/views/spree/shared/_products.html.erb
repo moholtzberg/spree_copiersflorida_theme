@@ -38,7 +38,7 @@
 				<% end %>
 			</div>
 			<div class="panel-footer">
-				<span class="price selling" itemprop="price"><%= display_price(product) %></span>
+				<span class="price selling" itemprop="price"><%= render :partial => "spree/products/mini_cart_form" , :locals => {:product => product }%></span>
 			</div>
 		</div>
 	</div>
