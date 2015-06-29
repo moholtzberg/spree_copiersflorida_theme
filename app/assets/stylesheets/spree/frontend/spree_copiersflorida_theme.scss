@@ -171,6 +171,15 @@ ul.filter_choices {
 	}
 }
 
+.home.col-md-3 {
+	padding-left: 0;
+	padding-right: 0;
+}
+.home.col-sm-4 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 #nav_bar_mobile {
 	margin-bottom: 40px;
 	padding: 0;
@@ -194,4 +203,50 @@ ul.phone {
 			vertical-align: -webkit-baseline-middle;
 		}
 	}
+}
+
+.shopping_cart.col-md-9 {
+	padding-left: 0;
+	padding-right: 0;
+	.cart-item-description-header {
+		font-size: large;
+		padding-left: 0;
+	}
+	.cart-item-quantity {
+		max-width: 20px;
+	}
+	.cart-item-image {
+		h4 {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+	.col-md-4, .col-md-5, .col-md-7, .col-md-8 , .col-sm-6{
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+.inner{
+	.form-group#bfirstname, .form-group#sfirstname {
+		padding-left: 0;
+		padding-right: 5px;
+	}
+	.form-group#blastname, .form-group#slastname {
+		padding-left: 5px;
+		padding-right: 0;
+	}
+	.form-group#bcity, .form-group#scity {
+		padding-left: 0;
+		padding-right: 5px;
+	}
+	.form-group#bstate, .form-group#state{
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.form-group#bzipcode, .form-group#szipcode {
+		padding-left: 5px;
+		padding-right: 0;
+	}
+	
 }
