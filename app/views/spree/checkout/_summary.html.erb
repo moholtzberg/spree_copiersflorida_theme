@@ -1,81 +1,52 @@
-<div class="panel panel-default no-margin-left no-margin-right">
+<div class="well well-sm text-center">
 	
-	<div class="panel-heading">
+	<h3 class="text-center cart-summary">Cart Summary</h3>
 	
-		<h3 class="panel-title"><%= Spree.t(:order_summary) %></h3>
+	Order #<%= @order.number %>
 	
-	</div>
-	
-	<div class="panel-body">
-		<table class="table" data-hook="order_summary">
-			
-			<tbody>
-				
-				<tr data-hook="item_total">
-					<td><strong><%= Spree.t(:item_total) %>:</strong></td>
-					<td><strong><%= order.display_item_total.to_html %></strong></td>
-				</tr>
-				
-				<% if order.line_item_adjustments.nonzero.exists? %>
-				<tbody data-hook="order_details_promotion_adjustments">
-		        <% order.line_item_adjustments.nonzero.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
-		          <tr class="total">
-		            <td><%= label %></td>
-		            <td><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency).to_html %></td>
-		          </tr>
-		        <% end %>
-		      </tbody>
-		    <% end %>
-
-		    <tbody data-hook="order_details_tax_adjustments">
-		      <% order.all_adjustments.nonzero.tax.eligible.group_by(&:label).each do |label, adjustments| %>
-		        <tr class="total">
-		          <td><%= label %></td>
-		          <td><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency).to_html %></td>
-		        </tr>
-		      <% end %>
-		    </tbody>
-
-		    <% if order.passed_checkout_step?("delivery") && order.shipments.any? %>
-		      <tr data-hook="shipping_total">
-		        <td><%= Spree.t(:shipping_total) %>:</td>
-		        <td><%= Spree::Money.new(order.shipments.to_a.sum(&:cost), currency: order.currency).to_html %></td>
-		      </tr>
-
-		      <% if order.shipment_adjustments.nonzero.exists? %>
-		        <tbody data-hook="order_details_shipment_promotion_adjustments">
-		          <% order.shipment_adjustments.nonzero.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
-		            <tr class="total">
-		              <td><%= label %>:</td>
-		              <td><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency).to_html %></td>
-		            </tr>
-		          <% end %>
-		        </tbody>
-		      <% end %>
-		    <% end %>
-
-		    <% if order.adjustments.nonzero.eligible.exists? %>
-		      <tbody id="summary-order-charges" data-hook>
-		        <% order.adjustments.nonzero.eligible.each do |adjustment| %>
-		        <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
-		          <tr class="total">
-		            <td><%= adjustment.label %>:</td>
-		            <td><%= adjustment.display_amount.to_html %></td>
-		          </tr>
-		        <% end %>
-		      </tbody>
-		    <% end %>
-
-
-		  </tbody>
-		</table>
-	</div>
+	<table class="table">
 		
-		<div class="panel-footer">
+		<tr class="cart-subtotal">
+			<td class="text-left"><%= Spree.t(:cart_subtotal, :count => @order.line_items.sum(:quantity)) %></td>
+			<td class="text-right"><%= @order.display_item_total %></td>
+		</tr>
+		
+		<%= render "spree/orders/adjustments" %>
+	
+		<tr class="cart-total">
+			<td class="text-left"><h4><%= Spree.t(:total) %></h4></td>
+			<td class="text-right"><h4><%= @order.display_total %></h4></td>
+		</tr>
+		
+	</table>
+	
+	<% if @order.state == "address" %>
+	
+		<%= check_box_tag 'save_user_address', '1', try_spree_current_user.respond_to?(:persist_order_address) %>
+		<%= label_tag :save_user_address, Spree.t(:save_my_address) %>
+	
+		<%= button_tag :class => 'checkout btn btn-success btn-lg btn-block', :id => 'checkout-link', :name => 'checkout', :form => "checkout_form_#{@order.state}" do %>
+Proceed To Delivery!
+		<% end %>
+		
+	<% elsif @order.state == "delivery" %>
+	
+		<%= button_tag :class => 'checkout btn btn-success btn-lg btn-block', :id => 'checkout-link', :name => 'checkout', :form => "checkout_form_#{@order.state}" do %>
+Proceed To Payment!
+		<% end %>
+		
+	<% elsif @order.state == "payment" %>
 			
-		      <strong><%= Spree.t(:order_total) %>:</strong>
-		     <strong><span id='summary-order-total' class="lead text-primary"><%= order.display_total.to_html %></span></strong>
-
-		</div>
+		<%= button_tag :class => 'checkout btn btn-success btn-lg btn-block', :id => 'checkout-link', :name => 'checkout', :form => "checkout_form_#{@order.state}" do %>
+	Proceed To Confirm!
+		<% end %>
+		<script>Spree.disableSaveOnClick();</script>
+	<% elsif @order.state == "confirm" %>
+	
+		<%= button_tag :class => 'checkout btn btn-success btn-lg btn-block', :id => 'checkout-link', :name => 'checkout', :form => "checkout_form_#{@order.state}" do %>
+	Place Order!
+		<% end %>
+		
+	<% end %>	
 	
 </div>

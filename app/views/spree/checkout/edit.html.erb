@@ -6,21 +6,11 @@
 		<div class="col-md-12" data-hook="checkout_progress"><%= checkout_progress %></div>
 	</div>
 	
-	<h2 class="page-header"><%= Spree.t(:checkout) %> Order # <%= @order.number %></h2>
-	
 	<div class="row" data-hook="checkout_content">
 		
-		<div class="col-<%= if @order.state != 'confirm' then 'md-9' else 'md-12' end %>" data-hook="checkout_form_wrapper">
+		<div class="col-md-9" id="checkout_form_wrapper" data-hook="checkout_form_wrapper">
+		
 		<%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-			
-			<%# if @order.state == 'address' || !@order.email? %>
-			<!-- 
-			<p class="field" style='clear: both'>
-				<%= form.label :email %><br />
-				<%= form.text_field :email, :class => "form-control" %>
-			</p>
-			-->
-			<%# end %>
 			
 			<%= form.hidden_field :state_lock_version %>
 			<%= render @order.state, :form => form %>
@@ -28,11 +18,10 @@
 		<% end %>
 		</div>
 		
-		<% if @order.state != 'confirm' %>
 		<div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
 			<%= render :partial => 'summary', :locals => { :order => @order } %>
 		</div>
-		<% end %>
+		
 	</div>
 	
 </div>

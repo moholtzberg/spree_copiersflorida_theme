@@ -1,6 +1,6 @@
 <div class="row">
 	
-	<div class="steps-data">
+	
 	
 	<% if order.has_step?("address") %>
 
@@ -17,42 +17,42 @@
 		
 	</div>
 	
-	<% if order.has_step?("delivery") %>
+		<% if order.has_step?("delivery") %>
 	
-	<div class="col-md-6 no-padding-left" data-hook="order-ship-address">
+		<div class="col-md-6 no-padding-left" data-hook="order-ship-address">
 		
-		<div class="panel panel-default no-margin-right">
-			<h4 class="panel-heading"><%= Spree.t(:shipping_address) %> <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless order.completed? %></h4>
+			<div class="panel panel-default no-margin-right">
+				<h4 class="panel-heading"><%= Spree.t(:shipping_address) %> <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless order.completed? %></h4>
 		
-			<div class="panel-body">
-				<%= render :partial => 'spree/shared/address', :locals => { :address => order.ship_address } %>
+				<div class="panel-body">
+					<%= render :partial => 'spree/shared/address', :locals => { :address => order.ship_address } %>
+				</div>
+		
 			</div>
 		
 		</div>
-		
-	</div>
 	
-	<div class="col-md-4 no-padding-right" data-hook="order-shipment">
+		<div class="col-md-4 no-padding-right" data-hook="order-shipment">
 		
-		<div class="panel panel-default no-margin-left">
+			<div class="panel panel-default no-margin-left">
 			
-			<h4 class="panel-heading">
-				<%= Spree.t(:shipments) %> <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:delivery) unless order.completed? %>
-			</h4>
+				<h4 class="panel-heading">
+					<%= Spree.t(:shipments) %> <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:delivery) unless order.completed? %>
+				</h4>
 			
-			<div class="panel-body delivery">
-				<% order.shipments.each do |shipment| %>
-				<i class='fa fa-truck fa-lg'></i>
-				<%= Spree.t(:shipment_details, :stock_location => shipment.stock_location.name, :shipping_method => shipment.selected_shipping_rate.name) %>
-				<% end %>
-				<%= render(:partial => 'spree/shared/shipment_tracking', :locals => {:order => order}) if order.shipped? %>
+				<div class="panel-body delivery">
+					<% order.shipments.each do |shipment| %>
+					<i class='fa fa-truck fa-lg'></i>
+					<%= Spree.t(:shipment_details, :stock_location => shipment.stock_location.name, :shipping_method => shipment.selected_shipping_rate.name) %>
+					<% end %>
+					<%= render(:partial => 'spree/shared/shipment_tracking', :locals => {:order => order}) if order.shipped? %>
+				</div>
+			
 			</div>
-			
-		</div>
 		
-	</div>
+		</div>
 	
-	<% end %>
+		<% end %>
 		
 	<% end %>
 		
@@ -83,8 +83,6 @@
 			</div>
 		</div>
 	</div>
-
-	<hr />
 	
 	<div class="col-md-12">
 		
@@ -129,7 +127,7 @@
 					<% end %>
 				</tbody>
 				
-				<tfoot id="order-total" data-hook="order_details_total">
+				<!-- <tfoot id="order-total" data-hook="order_details_total">
 					<tr class="total">
 						<td colspan="4"><b><%= Spree.t(:order_total) %>:</b></td>
 						<td class="total"><span id="order_total"><%= order.display_total.to_html %></span></td>
@@ -163,7 +161,7 @@
 						<td class="total"><span><%= Spree::Money.new(shipments.sum(&:discounted_cost), currency: order.currency).to_html %></span></td>
 					</tr>
 					<% end %>
-				</tfoot>
+				</tbody>
 				
 				<% if order.all_adjustments.tax.exists? %>
 				<tfoot id="tax-adjustments" data-hook="order_details_tax_adjustments">
@@ -184,7 +182,7 @@
 						<td class="total"><span><%= adjustment.display_amount.to_html %></span></td>
 					</tr>
 				<% end %>
-				</tfoot>
+				</tfoot> -->
 				
 			</table>
 		
