@@ -1,15 +1,38 @@
 <footer id="footer" class="row" data-hook>
 		
-	<div id="footer-left" class="col-md-6" data-hook>
+	<div id="footer-left" class="col-md-4" data-hook>
 		<p>&copy; <%= Time.new.strftime("%Y") %> <%= link_to 'CopiersFlorida.com', 'http://copiersflorida.com/' %></p>
 	</div>
-
-	<div id="footer-right" class="col-md-6" data-hook>
-
+	
+	<div id="footer-center" class="col-md-4">
+		
 	</div>
 	
-	<div id="footer-bottom" class="col-md-12 hidden-xs hidden-sm" data-hook>
-		<%= render :partial => "spree/shared/footer_brands_disclaimer" %>
+	<div id="footer-right" class="col-md-4" data-hook>
+		
+	</div>
+	
+	<div id="footer-bottom" class="col-md-12 hidden-xs hidden-sm inline " data-hook>
+		
+		<div class="col-md-2 no-padding-left no-padding-right">
+			<!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal"></a><div style="text-align:center"><a href="https://www.paypal.com/webapps/mpp/how-paypal-works"><font size="2" face="Arial" color="#0079CD"><b>How PayPal Works</b></font></a></div></td></tr></table><!-- PayPal Logo -->
+		</div>
+		
+		<div class="col-md-5">
+			<%= image_tag "dark_color/visa.png", :class => "pay_logo" %>
+			<%= image_tag "dark_color/master_card.png", :class => "pay_logo" %>
+			<%= image_tag "dark_color/american_express.png", :class => "pay_logo" %>
+			<%= image_tag "dark_color/discover.png", :class => "pay_logo" %>
+		</div>
+		
+		<div class="col-md-5">
+			&nbsp;
+		</div>
+		
+		<div class="col-md-12 no-padding-left no-padding-right">
+			<%= render :partial => "spree/shared/footer_brands_disclaimer" %> 
+		</div>
+		
 	</div>
 	
 </footer>
