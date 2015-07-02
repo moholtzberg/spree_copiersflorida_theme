@@ -10,7 +10,6 @@
   <% end %>
 <% end %>
 
-
 <% if params[:keywords] %>
 
   <div data-hook="search_results">
@@ -23,7 +22,7 @@
 
 <% else %>
 
-  <div data-hook="homepage_products">
+<div data-hook="homepage_products">
     <% cache(cache_key_for_products) do %>
       <%= render :partial => 'spree/shared/products', :locals => { :products => @products, :taxon => @taxon } %>
     <% end %>

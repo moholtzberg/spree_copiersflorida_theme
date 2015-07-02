@@ -1,0 +1,59 @@
+
+<div id="breadcrumbs" class="hidden-xs col-sm-12 col-md-12 no-padding-left no-padding-right">
+	<div class="breadcrumb">
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+		</li>
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a itemprop="url" href="<%= @page.slug unless @page.nil? %>"><span itemprop="title"><%= @page.title unless @page.nil? %></span></a>
+		</li>
+	</div>
+</div>
+
+
+<div class="col-md-12 no-padding-left no-padding-right">
+	
+	<div class="outer">
+		
+	<% taxons = Spree::Taxon.find_by(:name => @page.title) %>	
+	
+	<% if !taxons.nil? && !taxons.children.nil? %>
+	
+		<% col_count = 12 / taxons.children.count %>
+	
+		<% taxons.children.each do |make| %>
+	
+		<div class="col-md-<%= col_count %> col-sm-<%= col_count %> no-padding-left no-padding-right">
+		
+			<div class="panel panel-default category">
+			
+				<div class="panel-heading">
+					<%= make.name %>
+				</div>
+			
+				<div class="panel-body text-center">
+					<%= image_tag(make.icon(:original), :class => "product_type_showcase") %>
+				
+					<div class="description text-uppercase">
+						<%= make.description.html_safe unless make.description.nil? %>
+					</div>
+				
+				</div>
+			
+				<ul class="list-group">
+					<% make.children.each do |child |%>
+					<li class="list-group-item"><%= link_to child.name, seo_url(child) %></li>
+					<% end%>
+				</ul>
+			
+			</div>
+		
+		</div>
+	
+		<% end %>
+		
+	<% end %>
+	
+	</div>
+	
+</div>
