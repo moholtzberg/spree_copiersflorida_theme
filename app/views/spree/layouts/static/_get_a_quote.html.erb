@@ -1,0 +1,20 @@
+<div id="breadcrumbs" class="hidden-xs col-sm-12 col-md-12 no-padding-left no-padding-right">
+	<div class="breadcrumb">
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+		</li>
+		<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+			<a itemprop="url" href="<%= @page.slug %>"><span itemprop="title"><%= @page.title %></span></a>
+		</li>
+	</div>
+</div>
+
+<div class="outer">
+	
+	<div class="col-md-4 col-md-offset-4 no-padding-left no-padding-right">
+		
+		<%= render :partial => "spree/shared/new_quote_form"%>
+		
+	</div>
+	
+</div>
