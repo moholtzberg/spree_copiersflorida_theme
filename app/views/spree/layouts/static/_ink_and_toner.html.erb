@@ -34,7 +34,10 @@
 					<div class="panel-body">
 
 						<% make.children.each_with_index do |series, index| %>
-
+						
+						<div class="col-md-12 no-padding-left no-padding-right">
+							
+						
 						<h4><%= series.name %></h4>
 
 						<ul class="list-inline">
@@ -49,7 +52,9 @@
 							<% if (index - make.children.count) != -1 %>
 							<hr/>
 							<% end %>
-
+							
+						</div>
+							
 						<% end %>
 
 					</div>
