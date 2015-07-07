@@ -92,6 +92,29 @@ body.florida {
 			}
 		}
 		footer {
+			background-color: rgb(248, 248, 248);
+			border-top: solid 1px rgb(221, 221, 221);
+			.footer-spacer {
+				height: 10px;
+			  left: -1px;
+			  position: absolute;
+			  right: -1px;
+			  z-index: 999;
+			  background-color: rgb(238, 238, 238);
+			}
+			#badges {
+				background-color: rgb(255, 255, 255);
+				padding: 10px !important;
+				border-top: 1px solid rgb(221, 221, 221);
+				border-bottom: 1px solid rgb(221, 221, 221);
+				margin-top: 10px;
+			}
+			#address {
+				background-color: rgb(255, 255, 255);
+				padding: 10px !important;
+				border-top: 1px solid rgb(221, 221, 221);
+				border-bottom: 1px solid rgb(221, 221, 221);
+			}
 			.col-md-6 {
 				padding-left: 15px !important;
 				padding-right: 15px;
@@ -103,11 +126,9 @@ body.florida {
 				padding-top: 10px;
 			}
 			.pay_logo {
+				margin-top: 10px;
 				height: 55px;
 			}
-			background-color: rgb(248, 248, 248);
-			border-top: solid 1px rgb(221, 221, 221);
-			padding-top: 10px;
 		}
 	}
 }
@@ -340,6 +361,7 @@ input.coupon_code {
 }
 
 .comodo {
+	z-index: 1000;
 	bottom: 5px;
 	right: 7px;
 }

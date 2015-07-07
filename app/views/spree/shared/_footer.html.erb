@@ -1,37 +1,54 @@
 <footer id="footer" class="row" data-hook>
+	
+	<div class="footer-spacer">
 		
-	<div id="footer-left" class="col-md-12 no-padding-left no-padding-right text-center" data-hook>
+
+		<!-- 
+		<div class="col-md-4 hidden">
+
+		</div>
+
+		<div class="col-md-4 hidden" data-hook>
+
+		</div>
+		-->
+
+
+	</div>
+	
+	<div id="badges" class="col-md-12 no-padding-left no-padding-right text-center" data-hook>
+
+
+		<div class="col-md-4 text-left no-padding-left no-padding-right">
+			<a href="https://www.instantssl.com/ssl.html"  style="text-decoration:none; "><img alt="SSL" src="https://www.instantssl.com/ssl-certificate-images/support/comodo_secure_100x85_transp.png" style="border: 0px;" /></a>
+		</div>
+
+		<div class="col-md-4 text-center no-padding-left no-padding-right">
+			<%= image_tag "dark_color/visa.png", :class => "pay_logo" %>
+			<%= image_tag "dark_color/master_card.png", :class => "pay_logo" %>
+			<%= image_tag "dark_color/american_express.png", :class => "pay_logo" %>
+			<%= image_tag "dark_color/discover.png", :class => "pay_logo" %>
+		</div>
+
+		<div class="col-md-4 text-right no-padding-left no-padding-right">
+			<a href="https://www.paypal.com/us/verified/pal=moshe%40copiersflorida%2ecom" target="_blank"><img src="https://www.paypal.com/en_US/i/icon/verification_seal.gif" alt="Official PayPal Seal" height="75" border="0" width="75"></a>
+		</div>
+
+	</div>
+	
+	<div class="footer-spacer">
+	</div>
+	
+	<div id="address" class="address text-center">
 		<p>
 			&copy; <%= Time.new.strftime("%Y") %> <%= link_to 'CopiersFlorida.com', 'http://copiersflorida.com/' %> • 2957 NW 27th Street, Building 12 Fort Lauderdale, FL 33311
 			<br/>
 			(855) 436-2877 / (855) 436-2870 • M-F 9:00am - 6:00pm EST
 		</p>
 	</div>
+
 	
-	<div id="footer-center" class="col-md-4">
-		
-	</div>
-	
-	<div id="footer-right" class="col-md-4" data-hook>
-		
-	</div>
-	
-	<div id="footer-bottom" class="col-md-12 hidden-xs hidden-sm inline " data-hook>
-		
-		<div class="col-md-2 no-padding-left no-padding-right">
-			<!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/bdg_secured_by_pp_2line.png" border="0" alt="Secured by PayPal"></a><div style="text-align:center"><a href="https://www.paypal.com/webapps/mpp/how-paypal-works"><font size="2" face="Arial" color="#0079CD"><b>How PayPal Works</b></font></a></div></td></tr></table><!-- PayPal Logo -->
-		</div>
-		
-		<div class="col-md-5">
-			<%= image_tag "dark_color/visa.png", :class => "pay_logo" %>
-			<%= image_tag "dark_color/master_card.png", :class => "pay_logo" %>
-			<%= image_tag "dark_color/american_express.png", :class => "pay_logo" %>
-			<%= image_tag "dark_color/discover.png", :class => "pay_logo" %>
-		</div>
-		
-		<div class="col-md-5">
-			
-		</div>
+	<div id="disclaimer" class="col-md-12 hidden-xs hidden-sm inline " data-hook>
 		
 		<div class="col-md-12 no-padding-left no-padding-right">
 			<%= render :partial => "spree/shared/footer_brands_disclaimer" %> 
