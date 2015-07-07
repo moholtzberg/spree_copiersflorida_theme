@@ -41,7 +41,7 @@
 	
 	<div id="address" class="address text-center">
 		<p>
-			&copy; <%= Time.new.strftime("%Y") %> <%= link_to 'CopiersFlorida.com', 'http://copiersflorida.com/' %> • 2957 NW 27th Street, Building 12 Fort Lauderdale, FL 33311
+			&copy; <%= Time.new.strftime("%Y") %> <%= link_to 'CopiersFlorida.com', 'http://www.copiersflorida.com/' %> • 2957 NW 27th Street, Building 12 Fort Lauderdale, FL 33311
 			<br/>
 			(855) 436-2877 / (855) 436-2870 • M-F 9:00am - 6:00pm EST
 		</p>
@@ -55,5 +55,26 @@
 		</div>
 		
 	</div>
+	<!-- BEGIN: Google Trusted Stores -->
+	<script type="text/javascript">
+	  var gts = gts || [];
 	
+	  gts.push(["id", "<%= SECRET['GOOGLE_TRUSTED_STORE_ID'] %>"]);;
+	  gts.push(["badge_position", "BOTTOM_RIGHT"]);
+	  gts.push(["locale", "PAGE_LANGUAGE"]);
+	  //gts.push(["google_base_offer_id", "ITEM_GOOGLE_SHOPPING_ID"]);
+	  //gts.push(["google_base_subaccount_id", "ITEM_GOOGLE_SHOPPING_ACCOUNT_ID"]);
+	  //gts.push(["google_base_country", "ITEM_GOOGLE_SHOPPING_COUNTRY"]);
+	  //gts.push(["google_base_language", "ITEM_GOOGLE_SHOPPING_LANGUAGE"]);
+
+	  (function() {
+	    var gts = document.createElement("script");
+	    gts.type = "text/javascript";
+	    gts.async = true;
+	    gts.src = "https://www.googlecommerce.com/trustedstores/api/js";
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(gts, s);
+	  })();
+	</script>
+	<!-- END: Google Trusted Stores -->
 </footer>
