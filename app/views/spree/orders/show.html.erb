@@ -10,16 +10,16 @@
 		<span id="gts-o-id"><%= @order.number %></span>
 		<span id="gts-o-domain"><%= @current_store.url %></span>
 		<span id="gts-o-email"><%= @order.email %></span>
-		<span id="gts-o-country">United States</span>
+		<span id="gts-o-country">US</span>
 		<span id="gts-o-currency"><%= @order.currency %></span>
 		<span id="gts-o-total"><%= @order.total %></span>
 		<span id="gts-o-discounts"><%= @order.promo_total %></span>
 		<span id="gts-o-shipping-total"><%= @order.shipment_total %></span>
 		<span id="gts-o-tax-total"><%= @order.additional_tax_total %></span>
 		<span id="gts-o-est-ship-date"><%= 2.business_days.from_now.strftime('%F') %></span>
-		<!-- <span id="gts-o-est-delivery-date">ORDER_EST_DELIVERY_DATE</span> -->
-		<!-- <span id="gts-o-has-preorder">HAS_BACKORDER_PREORDER</span> -->
-		<!-- <span id="gts-o-has-digital">HAS_DIGITAL_GOODS</span> -->
+		<span id="gts-o-est-delivery-date"><%= 7.business_days.from_now.strftime('%F') %></span>
+		<span id="gts-o-has-preorder"><%= @order.backordered? ? "Y" : "N" %></span>
+		<span id="gts-o-has-digital"><%= @order.some_digital? ? "Y" : "N" %></span>
 		<!-- end order and merchant information -->
 		
 		<!-- start repeated item specific information -->
@@ -31,10 +31,11 @@
 			<span class="gts-i-quantity"><%= item.quantity %></span>
 			<!-- 
 			<span class="gts-i-prodsearch-id">ITEM_GOOGLE_SHOPPING_ID</span>
-			<span class="gts-i-prodsearch-store-id">ITEM_GOOGLE_SHOPPING_ACCOUNT_ID</span>
-			<span class="gts-i-prodsearch-country">ITEM_GOOGLE_SHOPPING_COUNTRY</span>
-			<span class="gts-i-prodsearch-language">ITEM_GOOGLE_SHOPPING_LANGUAGE</span>
 			-->
+			<span class="gts-i-prodsearch-store-id"><%= SECRET['GOOGLE_SHOPPING_ACCOUNT_ID'] %></span>
+			<span class="gts-i-prodsearch-country"><%= SECRET['GOOGLE_SHOPPING_ACCOUNT_COUNTRY'] %></span>
+			<span class="gts-i-prodsearch-language"><%= SECRET['GOOGLE_SHOPPING_ACCOUNT_LANG'] %></span>
+			
 		</span>
 		<% end %>
 		<!-- end item 1 example -->
