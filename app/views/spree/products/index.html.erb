@@ -2,9 +2,10 @@
   <% content_for :sidebar do %>
     <div data-hook="homepage_sidebar_navigation">
       <% if "spree/products" == params[:controller] && @taxon %>
-        <%= render :partial => 'spree/shared/taxonomies' %>
+        <%# render :partial => 'spree/shared/taxonomies' %>
+		<%= render :partial => 'spree/shared/smart_filter' %>
       <% else %>
-        <%= render :partial => 'spree/shared/taxonomies' %>
+        <%# render :partial => 'spree/shared/taxonomies' %>
       <% end %>
     </div>
   <% end %>

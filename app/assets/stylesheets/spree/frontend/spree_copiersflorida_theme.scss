@@ -365,3 +365,20 @@ input.coupon_code {
 	bottom: 5px;
 	right: 7px;
 }
+
+.collapse.sub-menu {
+	margin-top: 1px;
+}
+.panel-heading {
+	background-color: rgb(242, 242, 242) !important;
+}
+.panel {
+	li.list-group-item {
+		background-color: rgb(252, 252, 252);
+	}
+	.sub-menu {
+		li.list-group-item {
+			background-color: rgb(255, 255, 255);
+		}
+	}
+}

@@ -1,0 +1,66 @@
+<%# filters = @taxon ? @taxon.applicable_filters : [Spree::Core::ProductFilters.taxons_below(Spree::Taxon.find_by_name("Product Type"))] %>
+
+<ul id="accordion" class="filters panel panel-default no-margin-left no-margin-right" role="tablist" aria-multiselectable="false">
+<% Spree::Taxon.find_by(:name => "Product Type").children.each do |filter| %>
+	
+	<div class="panel-heading">
+		<div class="panel-tite">
+			<a href="#<%= filter.id %>" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="<%= filter.id %>"><strong><%= filter.name %></strong></a>
+		</div>
+	</div>
+	
+	<% if filter.children.count > 0 %>
+	<div class="panel-collapse collapse" id="<%= filter.id %>" role="tabpanel">
+		
+		<ul class="list-group">
+		
+		<% filter.children.each do |child| %>
+			<li class="list-group-item">
+				<a href="#<%= child.id %>" role="button" data-toggle="collapse" data-parent="<%= filter.id %>" aria-expanded="true" aria-controls="<%= child.id %>"><strong><%= child.name%> <span class="glyphicon glyphicon-chevron-down pull-right"></span></strong></a>
+			</li>
+			
+			<% if child.children.count > 0 %>
+			<div class="collapse sub-menu" id="<%= child.id %>" role="tabpanel">
+				
+				
+					
+					<% child.children.each do |grandchild| %>
+					
+					<li class="list-group-item">
+						<a href="<%= seo_url(grandchild) %>" data-parent="<%= child.id %>" aria-expanded="true">
+							<%= grandchild.name %>
+						</a>
+					</li>
+					
+					<% end %>
+					
+				
+				
+			</div>
+			
+			<% end %>
+			
+		<% end %>
+		
+		</ul>
+		
+	</div>	
+	<% end %>
+	
+<% end %>
+</ul>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			<a data-toggle="collapse" href="#collapse1">Content1</a>
+		</h4>
+	</div>
+		<div id="collapse1" class="panel-collapse collapse">
+		<div class="panel-body">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</div>
+	</div>
+</div>
+
+

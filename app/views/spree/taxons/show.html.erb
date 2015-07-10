@@ -2,8 +2,9 @@
 
 <% content_for :sidebar do %>
 	<div data-hook="taxon_sidebar_navigation">
-	<%= render partial: 'spree/shared/taxonomies' %>
-	<%= render partial: 'spree/shared/filters' %>
+	<%# render partial: 'spree/shared/taxonomies' %>
+	<%# render partial: 'spree/shared/filters' %>
+	<%= render :partial => 'spree/shared/smart_filter' %>
 	</div>
 <% end %>
 
