@@ -1,7 +1,8 @@
 <!-- insert_after 'title' original '6c51b34d058f87d10add34374293afce2bf817e2'-->
-<%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js" %>
-<%= javascript_include_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" %>
-<%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" %>
-<%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" %>
-<%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
+<%# javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js" %>
+<%# javascript_include_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" %>
+<%# stylesheet_link_tag "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" %>
+<%# stylesheet_link_tag "//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" %>
+<%# stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
 <%# stylesheet_link_tag "spree_copiersflorida_theme_products.css" %>
+<!-- this is a comment -->
