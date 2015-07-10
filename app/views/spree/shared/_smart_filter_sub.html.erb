@@ -1,0 +1,35 @@
+<% unless taxons_to_skip.include?(filter.name) %>
+
+	<% if filter.children.count > 0 %>
+	
+	<div class="panel-heading <%= css_class %>">
+		<div class="panel-title">
+			<a href="#<%= filter.id %>" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="<%= filter.id %>"><strong><%= filter.name %></strong></a>
+		</div>
+	</div>
+	
+	<div class="panel-collapse collapse" id="<%= filter.id %>" role="tabpanel">
+	
+		<ul class="list-group <%= css_class %>">
+		<% css_class = "#{css_class}_sub"%>
+		<% filter.children.each do |child| %>
+			
+			<%= render :partial => "spree/shared/smart_filter_sub", :locals => {:filter => child, :taxons_to_skip => taxons_to_skip, :css_class => css_class} %>
+		
+		<% end %>
+	
+		</ul>
+	
+	</div>
+	
+	<% else %>
+	
+	<div class="panel-heading <%= css_class %>">
+		<div class="panel-title">
+			<a href="<%= seo_url(filter) %>" data-parent="#accordion" aria-expanded="true"><strong><%= filter.name %></strong></a>
+		</div>
+	</div>
+	
+	<% end %>
+
+<% end %>

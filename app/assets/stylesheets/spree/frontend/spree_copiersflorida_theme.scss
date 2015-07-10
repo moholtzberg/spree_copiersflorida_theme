@@ -369,16 +369,28 @@ input.coupon_code {
 .collapse.sub-menu {
 	margin-top: 1px;
 }
-.panel-heading {
-	background-color: rgb(242, 242, 242) !important;
-}
-.panel {
-	li.list-group-item {
-		background-color: rgb(252, 252, 252);
+
+.filters {
+	.panel-heading {
+/*		background-color: rgb(242, 242, 242);*/
+		border-bottom-color: rgb(221, 221, 221);
 	}
-	.sub-menu {
-		li.list-group-item {
-			background-color: rgb(255, 255, 255);
+	
+	ul.list-group.sub {
+		margin-top: 1px;
+		a {
+			font-size: smaller;
 		}
 	}
+	.panel-heading.sub_sub {
+		background-color: rgb(252, 252, 252);
+	}
+	
+	ul.list-group.sub_sub {
+		margin-bottom: 0;
+		.panel-heading.sub_sub_sub {
+			background-color: wihite !important;
+		}
+	}
+
 }
