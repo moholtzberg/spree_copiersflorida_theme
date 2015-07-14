@@ -1,0 +1,41 @@
+<% if Spree::Taxon.find_by(:name => "Product Type") and !Spree::Taxon.find_by(:name => "Product Type").children.nil? %>	
+	<% Spree::Taxon.find_by(:name => "Product Type").children.each do |brand| %>
+	<div class="home col-md-3 col-sm-4">
+		<div class="panel panel-default">
+			<% if Spree::Page.find_by(:title => brand.name) %>
+				
+				<% page = Spree::Page.find_by(:title => brand.name) %>
+				
+				<% page_uri = Rails.application.routes.named_routes[:spree].path.spec.to_s + page.slug %>
+				
+				<% page_uri = page_uri.gsub("//", "/") %>
+				
+				<%= link_to page_uri do %>
+				
+				<div class="panel-body text-center">
+					<%= image_tag(brand.icon(:normal), :class => "product_type_showcase") %>
+				</div>
+				<div class="panel-footer">
+					Shop <%= brand.name %>
+				</div>
+				
+				<% end %>
+				
+			<% else %>
+				
+				<%= link_to(seo_url(brand)) do %>
+				
+				<div class="panel-body text-center">
+					<%= image_tag(brand.icon(:normal), :class => "product_type_showcase") %>
+				</div>
+				<div class="panel-footer">
+					Shop <%= brand.name %>
+				</div>
+				
+				<% end %>
+				
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+<% end %>

@@ -34,7 +34,7 @@
 	
 	<div class="col-md-8" id="product-description" data-hook="product_description">
 		
-		<h2 class="page-header"><%= @product.name %> 
+		<h2 class="page-header"><span itemprop="name"><%= @product.name %></span>
 			<% @product.taxons.where([ 'permalink LIKE ?' , 'brand/%' ]).each do |t| %>
 				<%= image_tag(t.icon(:normal), :class => "pull-right") %>
 			<% end %>

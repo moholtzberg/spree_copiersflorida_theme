@@ -1,0 +1,124 @@
+<div class="panel panel-default toner-finder">
+	
+	<div class="panel-body">
+		
+		<h4 class="text-center"><strong>TONER & INK FINDER</strong></4>
+		<h4 class="text-center">FIND TONER & PRINTER SUPPLIES FAST & EASY</h4>
+		<br/>
+		<select id="finder-make" class="form-control">
+			<option>1 | Select Your Printer Brand</option>
+			<% Spree::Taxon.find_by(:name => "Makes").children.each do |make| %>
+				<option value="<%= make.id %>"><%= make.name %></option>
+			<% end %>
+		</select>
+
+		<script>
+			$("select#finder-make").change(function(event){
+				var make = $("select#finder-make").val();
+
+				var request = $.ajax({
+					url : '/api/taxonomies/<%= Spree::Taxon.find_by(:name => "Makes").taxonomy_id %>/taxons/'+ make,
+					data: {token: '<%= spree_current_user.spree_api_key %>'},
+					dataType : "json"
+				});
+
+				request.success(function(data) {
+					success_action(data)
+				});
+
+				request.error(function(httpObj, textStatus) {       
+					if(httpObj.status == 200)
+					success_action(data)
+					else
+					alert("Failed")
+				});
+
+				function success_action(data_object) {
+					console.log(data_object.taxons)
+					var text = "<option>2 | Select Your Printer Family</option>"
+					for (var i=0; i < data_object.taxons.length; i++) {
+						text += "<option value=" + data_object.taxons[i].id + ">" + data_object.taxons[i].name + "</option>"
+					};
+					$("select#finder-family").empty().append(text);
+					$("select#finder-family").removeAttr("disabled");
+				}
+
+			});
+		</script>
+		<br/>
+
+		<select id="finder-family" class="form-control" disabled>
+			<option>2 | Select Your Printer Family</option>
+		</select>
+
+		<script>
+			$("select#finder-family").change(function(event){
+				var make = $("select#finder-family").val();
+
+				var request = $.ajax({
+					url : '/api/taxonomies/<%= Spree::Taxon.find_by(:name => "Makes").taxonomy_id %>/taxons/'+ make,
+					data: {token: '<%= spree_current_user.spree_api_key %>'},
+					dataType : "json"
+				});
+
+				request.success(function(data) {
+					success_action(data)
+				});
+
+				request.error(function(httpObj, textStatus) {       
+					if(httpObj.status == 200)
+					success_action(data)
+					else
+					alert("Failed")
+				});
+
+				function success_action(data_object) {
+					console.log(data_object.taxons)
+					var text = "<option>3 | Select Your Printer Model</option>"
+					for (var i=0; i < data_object.taxons.length; i++) {
+						text += "<option value=" + data_object.taxons[i].id + ">" + data_object.taxons[i].name + "</option>"
+					};
+					$("select#finder-model").empty().append(text);
+					$("select#finder-model").removeAttr("disabled");
+				}
+
+			});
+		</script>
+
+		<br/>
+
+		<select id="finder-model" class="form-control" disabled>
+			<option>3 | Select Your Printer Model</option>
+		</select>
+
+		<script>
+			$("select#finder-model").change(function(event){
+				var make = $("select#finder-model").val();
+
+				var request = $.ajax({
+					url : '/api/taxonomies/<%= Spree::Taxon.find_by(:name => "Makes").taxonomy_id %>/taxons/'+ make,
+					data: {token: '<%= spree_current_user.spree_api_key %>'},
+					dataType : "json"
+				});
+
+				request.success(function(data) {
+					success_action(data)
+				});
+
+				request.error(function(httpObj, textStatus) {       
+					if(httpObj.status == 200)
+					success_action(data)
+					else
+					alert("Failed")
+				});
+
+				function success_action(data_object) {
+					window.location.href = "/t/" + data_object.permalink;
+				}
+
+			});
+		</script>
+		
+	</div>
+	
+</div>

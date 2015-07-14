@@ -394,3 +394,22 @@ input.coupon_code {
 	}
 
 }
+.toner-finder {
+	margin: 0;
+	height: 285px;
+}
+.home-text {
+	margin-top: 20px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-top: 2px solid rgb(221,221,221);
+	border-bottom: 2px solid rgb(221,221,221);
+	h1 {
+		margin: 0;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: 24px;
+		font-family: sans-serif;
+		color: rgb(119,119,119);
+	}
+}
