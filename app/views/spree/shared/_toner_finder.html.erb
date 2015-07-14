@@ -18,7 +18,7 @@
 
 				var request = $.ajax({
 					url : '/api/taxonomies/<%= Spree::Taxon.find_by(:name => "Makes").taxonomy_id %>/taxons/'+ make,
-					data: {token: '<%= spree_current_user.spree_api_key %>'},
+					// data: {token: '<%# spree_current_user.spree_api_key %>'},
 					dataType : "json"
 				});
 
@@ -57,7 +57,7 @@
 
 				var request = $.ajax({
 					url : '/api/taxonomies/<%= Spree::Taxon.find_by(:name => "Makes").taxonomy_id %>/taxons/'+ make,
-					data: {token: '<%= spree_current_user.spree_api_key %>'},
+					// data: {token: '<%# spree_current_user.spree_api_key %>'},
 					dataType : "json"
 				});
 
@@ -97,7 +97,7 @@
 
 				var request = $.ajax({
 					url : '/api/taxonomies/<%= Spree::Taxon.find_by(:name => "Makes").taxonomy_id %>/taxons/'+ make,
-					data: {token: '<%= spree_current_user.spree_api_key %>'},
+					// data: {token: '<%# spree_current_user.spree_api_key %>'},
 					dataType : "json"
 				});
 
