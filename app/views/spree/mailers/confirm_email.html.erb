@@ -1,84 +1,259 @@
-<table>
-  <tr>
-    <td>
-      <p class="lede">
-        <%= Spree.t('order_mailer.confirm_email.dear_customer') %>
-      </p>
-      <p>
-        <%= Spree.t('order_mailer.confirm_email.instructions') %>
-      </p>
-      <p>
-        <%= Spree.t('order_mailer.confirm_email.order_summary') %>
-      </p>
-      <table>
-        <% @order.line_items.each do |item| %>
-          <tr>
-            <td><%= item.variant.sku %></td>
-            <td>
-              <%= raw(item.variant.product.name) %>
-              <%= raw(item.variant.options_text) -%>
-            </td>
-            <td>(<%=item.quantity%>) @ <%= item.single_money %> = <%= item.display_amount %></td>
-          </tr>
-        <% end %>
-        <tr>
-          <td></td>
-          <td>
-            <%= Spree.t('order_mailer.confirm_email.subtotal') %>
-          </td>
-          <td>
-            <%= @order.display_item_total %>
-          </td>
-        </tr>
-        <% if @order.line_item_adjustments.exists? %>
-          <% if @order.all_adjustments.promotion.eligible.exists? %>
-            <% @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
-              <tr>
-                <td></td>
-                <td><%= Spree.t(:promotion) %> <%= label %>:</td>
-                <td><%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        <% end %>
-        <% @order.shipments.group_by { |s| s.selected_shipping_rate.try(:name) }.each do |name, shipments| %>
-          <tr>
-            <td></td>
-            <td><%= Spree.t(:shipping) %> <%= name %>:</td>
-            <td><%= Spree::Money.new(shipments.sum(&:discounted_cost), currency: @order.currency) %></td>
-          </tr>
-        <% end %>
-        <% if @order.all_adjustments.eligible.tax.exists? %>
-          <% @order.all_adjustments.eligible.tax.group_by(&:label).each do |label, adjustments| %>
-            <tr>
-              <td></td>
-              <td><%= Spree.t(:tax) %> <%= label %>:</td>
-              <td><%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %></td>
-            </tr>
-          <% end %>
-        <% end %>
-        <% @order.adjustments.eligible.each do |adjustment| %>
-          <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
-          <tr>
-            <td></td>
-            <td><%= adjustment.label %>:</td>
-            <td><%= adjustment.display_amount %></td>
-          </tr>
-        <% end %>
-        <tr>
-          <td></td>
-          <td>
-            <%= Spree.t('order_mailer.confirm_email.total') %>
-          </td>
-          <td>
-            <%= @order.display_total %>
-          </td>
-        </tr>
-      </table>
-      <p>
-        <%= Spree.t('order_mailer.confirm_email.thanks') %>
-      </p>
-    </td>
-    <td class="expander"></td>
-  </tr>
+<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		font-family: sans-serif;
+		color: rgb(119, 119, 119);
+	}
+	table, tr, td {
+		padding: 0;
+		vertical-align: top;
+		border-spacing: 0;
+		color: rgb(119, 119, 119);
+	}
+	.main {
+		width: 100%;
+		height: 440px;
+		background-color: rgb(238, 238, 238);
+		border-spacing: 0;
+	}
+	tbody.main {
+		vertical-align: top;
+	}
+	td.main {
+		text-align: center;
+		vertical-align: top;
+	}
+	.top-line {
+		height: 2px;
+		width: 100%;
+		background-color: yellow;
+	}
+	.navbar {
+		border-top: 1px solid rgb(231, 231, 231);
+		border-bottom: 1px solid rgb(231, 231, 231);
+		background-color: rgb(248, 248, 248);
+		height: 5px;
+		width: 100%;
+	}
+	.navbar table.navbar tr td {
+		padding: 15px;
+		text-transform: uppercase;
+		text-align: center;
+	}
+	table.inner {
+		width: 600px;
+		background-color: white;
+		border-right: solid 1px rgb(221, 221, 221);
+		border-left: solid 1px rgb(221, 221, 221);
+	}
+	table.content {
+		width: 100%;
+	}
+	td.inner {
+		padding: 5px;	
+	}
+	.line-items {
+		border-bottom: 1px solid gray;
+	}
+	table.order-summary {
+		padding: 20px;
+		background-color: azure;
+	}
+	tr.line-item {
+		margin-bottom: 5px;
+	}
+	tr.line-item td {
+		border-bottom: 2px solid grey;
+		padding: 5px;
+	}
+	.line-item {
+		border: none;
+	}
+	td.order-total {
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	table.order-total {
+		background-color: whitesmoke;
+		padding: 5px;
+	}
+	table.order-total tr {
+		padding-bottom: 5px;	
+	}
+	tr.header td {
+		padding-left: 15px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		text-align: center;
+	}
+	.content td.inner {
+		padding: 15px;
+	}
+	tr.footer {
+		width: 100%;
+		background-color: rgb(248, 248, 248);
+	}
+	table.footer {
+		border-top: solid 1px rgb(221, 221, 221);
+		min-height: 40px;
+		width: 100%;
+	}
+	table.footer td{
+/*		padding:5px;*/
+	}
+	table.address {
+		background-color: white;
+		width: 100%;
+		text-align: center;
+		padding: 10px;
+		color: black;
+	}
+</style>
+
+<table class="main">
+	<tbody class="main">
+		<tr>
+			<td align="center">
+				<table class="top-line">
+					<tr><td></td></tr>
+				</table>
+				
+				<table class="inner">
+					
+					<tr class="header">
+						<td colspan=2><%= image_tag("copiersflorida_logo.png", width: "300", class: "logo") %></td>
+					</tr>
+					
+					<tr class="navbar">
+						<td>
+							<table class="navbar">
+								<tr><td>Order Confirmation</td></tr>
+							</table>
+						</td>
+					</tr>
+					
+					<tr class="content">
+						<td class="inner">
+							<table>
+								<tr>
+									<td>
+										<p><%= @order.billing_address.firstname? ? @order.billing_address.firstname : Spree.t('order_mailer.confirm_email.dear_customer') %></p>
+										
+										<p><%= Spree.t('order_mailer.confirm_email.instructions') %></p>
+										<p><%= Spree.t('order_mailer.confirm_email.order_summary') %></p>
+									</td>
+								</tr>
+							</table>
+							
+							<table class="order-summary">
+								<% @order.line_items.each do |item| %>
+								<tr class="line-item">
+									<td><%= item.variant.sku %></td>
+									<td>
+									<%= raw(item.variant.product.name) %>
+									<br/>
+									<%= raw(item.variant.options_text) -%>
+									</td>
+									<td align="right">(<%=item.quantity%>) @ <%= item.single_money %> = <%= item.display_amount %></td>
+								</tr>
+								<% end %>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+									<td class="order-total">
+										<table class="order-total">
+											<tr align="right">
+												<td></td>
+												<td></td>
+												<td><%= Spree.t('order_mailer.confirm_email.subtotal') %></td>
+												<td><%= @order.display_item_total %></td>
+											</tr>
+											<% if @order.line_item_adjustments.exists? %>
+											<% if @order.all_adjustments.promotion.eligible.exists? %>
+											<% @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+											<tr>
+												<td></td>
+												<td></td>
+												<td><%= Spree.t(:promotion) %> <%= label %>:</td>
+												<td><%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %></td>
+											</tr>
+											<% end %>
+											<% end %>
+											<% end %>
+
+											<% @order.shipments.group_by { |s| s.selected_shipping_rate.try(:name) }.each do |name, shipments| %>
+											<tr align="right">
+												<td></td>
+												<td></td>
+												<td><%= Spree.t(:shipping) %> <%= name %>:</td>
+												<td><%= Spree::Money.new(shipments.sum(&:discounted_cost), currency: @order.currency) %></td>
+											</tr>
+											<% end %>
+
+											<% if @order.all_adjustments.eligible.tax.exists? %>
+											<% @order.all_adjustments.eligible.tax.group_by(&:label).each do |label, adjustments| %>
+											<tr align="right">
+												<td></td>
+												<td></td>
+												<td><%= Spree.t(:tax) %> <%= label %>:</td>
+												<td><%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %></td>
+											</tr>
+											<% end %>
+											<% end %>
+
+											<% @order.adjustments.eligible.each do |adjustment| %>
+											<% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
+											<tr align="right">
+												<td></td>
+												<td></td>
+												<td><%= adjustment.label %>:</td>
+												<td><%= adjustment.display_amount %></td>
+											</tr>
+											<% end %>
+
+											<tr align="right">
+												<td></td>
+												<td></td>
+												<td><%= Spree.t('order_mailer.confirm_email.total') %></td>
+												<td><%= @order.display_total %></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								
+							</table>
+							
+							<table>
+								<tr>
+									<td>
+										<p><%= Spree.t('order_mailer.confirm_email.thanks') %></p>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr class="footer">
+						<td>
+						<table class="footer">
+							<tr>
+								<td>
+									<table class="address">
+										<tr>
+											<td align="center">
+												<p>&copy; 2015 CopiersFlorida.com &#8226; 2957 NW 27th Street, Building 12 Fort Lauderdale, FL 33311
+													<br/>
+												(855) 436-2877 / (855) 436-2870 &#8226; M-F 9:00am - 6:00pm EST</p>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</tbody>
 </table>
