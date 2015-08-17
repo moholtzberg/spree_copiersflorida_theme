@@ -1,0 +1,17 @@
+<%= form_for @order, :url => apply_coupons_path(), :html => {:id => 'update-cart'}, :remote => true do |of| %>
+
+	<h4 class="modal-title">Enter Coupon Code</h4>
+	<%= of.hidden_field :order_id, :value => @order.id %>
+	
+	<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<%= of.text_field :coupon_code, :class => "form-control coupon_code", :placeholder => Spree.t(:coupon_code) %>
+		</div>
+		<div class="col-md-6">
+			<%= of.submit "Apply Coupon", :type => "submit", :class => "btn btn-success" %>
+		</div>
+	</div>
+	
+<% end %>

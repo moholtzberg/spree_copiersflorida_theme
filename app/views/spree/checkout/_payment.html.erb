@@ -1,73 +1,191 @@
-<div class="row">
+<style>
 	
-	<div class="col-md-12 payment_wrapper">
+	.tabs-below > .nav-tabs,
+	.tabs-right > .nav-tabs,
+	.tabs-left > .nav-tabs {
+	  border-bottom: 0;
+	}
+
+	.tab-content > .tab-pane,
+	.pill-content > .pill-pane {
+	  display: none;
+	}
+
+	.tab-content > .active,
+	.pill-content > .active {
+	  display: table;
+	}
+
+	.tabs-below > .nav-tabs {
+	  border-top: 1px solid #ddd;
+	}
+
+	.tabs-below > .nav-tabs > li {
+	  margin-top: -1px;
+	  margin-bottom: 0;
+	}
+
+	.tabs-below > .nav-tabs > li > a {
+	  -webkit-border-radius: 0 0 4px 4px;
+	     -moz-border-radius: 0 0 4px 4px;
+	          border-radius: 0 0 4px 4px;
+	}
+
+	.tabs-below > .nav-tabs > li > a:hover,
+	.tabs-below > .nav-tabs > li > a:focus {
+	  border-top-color: #ddd;
+	  border-bottom-color: transparent;
+	}
+
+	.tabs-below > .nav-tabs > .active > a,
+	.tabs-below > .nav-tabs > .active > a:hover,
+	.tabs-below > .nav-tabs > .active > a:focus {
+	  border-color: transparent #ddd #ddd #ddd;
+	}
+
+	.tabs-left > .nav-tabs > li,
+	.tabs-right > .nav-tabs > li {
+	  float: none;
+	}
+
+	.tabs-left > .nav-tabs > li > a,
+	.tabs-right > .nav-tabs > li > a {
+	  min-width: 74px;
+	  margin-right: 0;
+	  margin-bottom: 3px;
+	}
+
+	.tabs-left > .nav-tabs {
+	  float: left;
+	  margin-right: 19px;
+	  border-right: 1px solid #ddd;
+	}
+
+	.tabs-left > .nav-tabs > li > a {
+	  margin-right: -1px;
+	  -webkit-border-radius: 4px 0 0 4px;
+	     -moz-border-radius: 4px 0 0 4px;
+	          border-radius: 4px 0 0 4px;
+	}
+
+	.tabs-left > .nav-tabs > li > a:hover,
+	.tabs-left > .nav-tabs > li > a:focus {
+	  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+	}
+
+	.tabs-left > .nav-tabs .active > a,
+	.tabs-left > .nav-tabs .active > a:hover,
+	.tabs-left > .nav-tabs .active > a:focus {
+	  border-color: #ddd transparent #ddd #ddd;
+	  *border-right-color: #ffffff;
+	}
+
+	.tabs-right > .nav-tabs {
+	  float: right;
+	  margin-left: 19px;
+	  border-left: 1px solid #ddd;
+	}
+
+	.tabs-right > .nav-tabs > li > a {
+	  margin-left: -1px;
+	  -webkit-border-radius: 0 4px 4px 0;
+	     -moz-border-radius: 0 4px 4px 0;
+	          border-radius: 0 4px 4px 0;
+	}
+
+	.tabs-right > .nav-tabs > li > a:hover,
+	.tabs-right > .nav-tabs > li > a:focus {
+	  border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+	}
+
+	.tabs-right > .nav-tabs .active > a,
+	.tabs-right > .nav-tabs .active > a:hover,
+	.tabs-right > .nav-tabs .active > a:focus {
+	  border-color: #ddd #ddd #ddd transparent;
+	  *border-left-color: #ffffff;
+	}
+	
+	.tab-content {
+		display: table;
+	}
+	
+	ul.nav.tabs {
+		width: 20%;
+	}
+	.tab-content {
+		width: 80%;
+	}
+	.tab-pane {
+		width: 100%;
+	}
+</style>
+
+<div class="col-md-12" id="payment">
+	
+	<% if @payment_sources.present? %>
+	<div class="card_options">
+		<%= radio_button_tag 'use_existing_card', 'yes', true %>
+		<label for="use_existing_card_yes">Use an existing card on file</label>
+		<br/>
+		<%= radio_button_tag 'use_existing_card', 'no' %>
+		<label for="use_existing_card_no">Use a new card / payment method</label>
+	</div>
+
+	<div id="existing_cards">
+		<p class="field" data-hook="existing_cards">
+			<table class="existing-credit-card-list">
+				<tbody>
+				<% @payment_sources.each do |card| %>
+				<tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
+					<td>&nbsp;<%= image_tag "dark_color/#{card.cc_type}.png", :style => "height:22px" %>&nbsp;</td>
+					<td>&nbsp;<%= card.name %>&nbsp;</td>
+					<td>&nbsp;****<%= card.last_digits %>&nbsp;</td>
+					<td>&nbsp;<%= DateTime.new(card.year, card.month).strftime('%m') %>/<%= card.year %>&nbsp;</td>
+					<td>&nbsp;
+					<%= radio_button_tag "order[existing_card]", card.id, (card == @payment_sources.first), { class: "existing-cc-radio" }  %>
+					&nbsp;</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		</p>
+	</div>
+	<hr/>
+	<% end %>
+
+	<%= yield :errors %>
+	
+	<div class="tabbable tabs-left">
 		
-		<div class="panel panel-default no-margin-left no-margin-right" id="payment" data-hook>
-		  <div class="panel-heading">
-		    <h3 class="panel-title"><%= Spree.t(:payment_information) %></h3>
-		  </div>
-		  <div class="panel-body" data-hook="checkout_payment_step">
-
-		    <% if @payment_sources.present? %>
-		      <div class="card_options">
-		        <%= radio_button_tag 'use_existing_card', 'yes', true %>
-		        <label for="use_existing_card_yes">Use an existing card on file</label>
-		        <br/>
-		        <%= radio_button_tag 'use_existing_card', 'no' %>
-		        <label for="use_existing_card_no">Use a new card / payment method</label>
-		      </div>
-
-		      <div id="existing_cards">
-		        <p class="field" data-hook="existing_cards">
-		          <table class="existing-credit-card-list">
-		            <tbody>
-		              <% @payment_sources.each do |card| %>
-		                <tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
-		                  <td><%= card.name %></td>
-		                  <td><%= card.display_number %></td>
-		                  <td><%= card.month %></td>
-		                  <td><%= card.year %></td>
-		                  <td>
-		                    <%= radio_button_tag "order[existing_card]", card.id, (card == @payment_sources.first), { class: "existing-cc-radio" }  %>
-		                  </td>
-		                </tr>
-		              <% end %>
-		            </tbody>
-		          </table>
-		        </p>
-		      </div>
-		    <% end %>
-
-		    <ul class="list-group" id="payment-method-fields" data-hook>
-		      <% @order.available_payment_methods.each do |method| %>
-		      <li class="list-group-item">
-		        <label>
-		          <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.available_payment_methods.first %>
-		          <%= Spree.t(method.name, :scope => :payment_methods, :default => method.name) %>
-		        </label>
-		      </li>
-		      <% end %>
-		    </ul>
-
-		    <ul class="nav" id="payment-methods" data-hook>
-		      <% @order.available_payment_methods.each do |method| %>
-		        <li id="payment_method_<%= method.id %>" class="<%= 'last' if method == @order.available_payment_methods.last %>" data-hook>
-		          <fieldset>
-		            <%= render :partial => "spree/checkout/payment/#{method.method_type}", :locals => { :payment_method => method } %>
-		          </fieldset>
-		        </li>
-		      <% end %>
-		    </ul>
+		<ul class="nav nav-tabs">
+			<% @order.available_payment_methods.each_with_index do |method, i| %>
+			<%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.available_payment_methods.first %>
+			<script>
+				$("input[type=radio]#order_payments_attributes__payment_method_id_<%= method.id %>").hide()
+				$("a[href=#<%= method.id %>]").click(function(e){
+					$("input[type=radio]#order_payments_attributes__payment_method_id_<%= method.id %>").prop('checked', true)
+					// $("input[type=radio]#order_payments_attributes__payment_method_id_<%= method.id %>").show()
+				})
+			</script>
+			<script>
+			$.getScript('/assets/spree/frontend/checkout/payment.js', function() {});
+			</script>
+			<li <%= i == 0 ? "class=active" : "" %>><a href="#<%= method.id %>" data-toggle="tab"><%= method.name %></a></li>
+			<% end %>
+		</ul>
+		<div class="tab-content">
+			<% @order.available_payment_methods.each_with_index do |method, i| %>
+			<div class="tab-pane <%= i == 0 ? "active" : "" %>" id="<%= method.id %>"><%= render :partial => "spree/checkout/payment/#{method.method_type}", :locals => { :payment_method => method } %></div>
+			<% end %>
 			
-
-			
-		    <p class='field' data-hook='coupon_code'>
-		      <%= form.label :coupon_code %><br />
-		      <%= form.text_field :coupon_code, :class => 'form-control' %>
-		    </p>
-		  </div>
+			<!-- Button trigger modal -->
+			<p class="text-right">
+				<button type="button" class="btn btn-link coupon-link" data-toggle="modal" data-target="#myModal">
+				  Have a Coupon Code?
+				</button>
+			</p>
 		</div>
 		
 	</div>
-	
 </div>
+<script>Spree.disableSaveOnClick();</script>

@@ -17,6 +17,13 @@ Spree::OrderMailer.class_eval do
       :html => render_to_string("spree/mailers/confirm_email", :layout => "spree/layouts/base_email").to_str
     }
     puts mg_client.send_message("mg.copiersflorida.com", message_params)
+    message_params = {
+      :to => 'moshe@copiersflorida.com',
+      :from => 'orders@copiersfliorida.com',
+      :subject => "[COPY] #{subject}",
+      :html => render_to_string("spree/mailers/confirm_email", :layout => "spree/layouts/base_email").to_str
+    }
+    puts mg_client.send_message("mg.copiersflorida.com", message_params)
   end
   
   def cancel_email(order, resend = false)

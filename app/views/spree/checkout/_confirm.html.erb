@@ -1,7 +1,7 @@
 <div class="row">
 	
 	<div class="col-md-12 payment_wrapper">
-		
+		<h1>PO NUMBER: <%= @order.po_number %></h1>
 		<%= render :partial => 'spree/shared/order_details', :locals => { :order => @order } %>
 		
 	</div>

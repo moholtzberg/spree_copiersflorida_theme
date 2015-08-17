@@ -1,29 +1,18 @@
-<div id="checkout" data-hook>
+<h2 class="page-header">Secure Checkout&nbsp;<br/><small class="gold"><span class="glyphicon glyphicon-lock gold"></span> This is a secure 128-bit SSL encrypted page.</small></h2>
+
+
+<div class="panel-group col-md-12" id="checkout" data-hook>
 	
-	<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
+	<% @order.checkout_steps[0...4].each do |state| %>
 	
-	<div class="row" data-hook="checkout_header">
-		<div class="col-md-12" data-hook="checkout_progress"><%= checkout_progress %></div>
-	</div>
+		<%= render :partial => "form_wrapper", :locals => {:order => @order, :state => state} %>
 	
-	<div class="row" data-hook="checkout_content">
-		
-		<div class="col-md-9" id="checkout_form_wrapper" data-hook="checkout_form_wrapper">
-		
-		<%= form_for @order, :url => update_checkout_path(@order.state), :html => { :id => "checkout_form_#{@order.state}" } do |form| %>
-			
-			<%= form.hidden_field :state_lock_version %>
-			<%= render @order.state, :form => form %>
-			
-		<% end %>
-		</div>
-		
-		<div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
-			<%= render :partial => 'summary', :locals => { :order => @order } %>
-		</div>
-		
-	</div>
+	<% end %>
 	
+</div>
+
+<div class="col-md-3" style="display:none">
+	<%= render :partial => "summary", :locals => {:order => @order, :state => @order.state}%>
 </div>
 
 <script>
@@ -31,6 +20,15 @@ Spree.current_order_id = "<%= @order.number %>"
 Spree.current_order_token = "<%= @order.guest_token %>"
 </script>
 
-<% if I18n.locale != :en %>
-  <%= javascript_include_tag 'jquery.validate/localization/messages_' + I18n.locale.to_s.downcase.gsub('-', '') %>
-<% end %>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			
+			<div id="myModalBody" class="modal-body" data-hook='coupon_code'>
+				<%= render :partial => "spree/checkout/remote/login" %>
+			</div>
+			
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,13 @@
+<div id="checkout_delivery" class="panel-collapse" role="tabpanel">
+	
+	<div class="panel-body">
+		
+		<%= render :partial => "delivery", :locals => {:order => @order, :form => form} %>
+	
+		<div class="col-md-12">
+			<%= form.submit "Save & Continue", :class => 'btn btn-success pull-right' %>
+		</div>
+	
+	</div>
+	
+</div>

@@ -1,35 +1,139 @@
-<div class="well clearfix">
-  <%= image_tag 'credit_cards/credit_card.gif', :id => 'credit-card-image', :class => 'pull-right' %>
-  <% param_prefix = "payment_source[#{payment_method.id}]" %>
+<style>
+	/* Padding - just for asthetics on Bootsnipp.com */
+	body { margin-top:20px; }
 
-  <p class="field">
-    <%= label_tag "name_on_card_#{payment_method.id}", Spree.t(:name_on_card) %><span class="required">*</span><br />
-    <%= text_field_tag "#{param_prefix}[name]", "#{@order.billing_firstname} #{@order.billing_lastname}", { id: "name_on_card_#{payment_method.id}", :class => 'form-control required'} %>
-  </p>
+	/* CSS for Credit Card Payment form */
+	.credit-card-box .panel-title {
+	    display: inline;
+	    font-weight: bold;
+	}
+	.credit-card-box .form-control.error {
+	    border-color: red;
+	    outline: 0;
+	    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+	}
+	.credit-card-box label.error {
+	  font-weight: bold;
+	  color: red;
+	  padding: 2px 8px;
+	  margin-top: 2px;
+	}
+	.credit-card-box .payment-errors {
+	  font-weight: bold;
+	  color: red;
+	  padding: 2px 8px;
+	  margin-top: 2px;
+	}
+	.credit-card-box label {
+	    display: block;
+	}
+	/* The old "center div vertically" hack */
+	.credit-card-box .display-table {
+	    display: table;
+	}
+	.credit-card-box .display-tr {
+	    display: table-row;
+	}
+	.credit-card-box .display-td {
+	    display: table-cell;
+	    vertical-align: middle;
+	    width: 50%;
+	}
+	/* Just looks nicer */
+	.credit-card-box .panel-heading img {
+	    min-width: 180px;
+	}
+	
+	.credit-card-box > .input-group-addon {
+		border-top-right-radius: 4px;
+		border-bottom-right-radius: 4px;
+	}
+	.tabs-left ul.nav-tabs {
+		margin-right: 0;
+		width: 20%;
+	}
+	.tab-content {
+		padding-left: 19px;
+		width: 80%;
+	}
+</style>
 
-  <p class="field" data-hook="card_number">
-    <%= label_tag "card_number", Spree.t(:card_number) %><span class="required">*</span><br />
-    <% options_hash = Rails.env.production? ? {:autocomplete => 'off'} : {} %>
-    <%= text_field_tag "#{param_prefix}[number]", '', options_hash.merge(:id => 'card_number', :class => 'form-control required cardNumber', :size => 19, :maxlength => 19, :autocomplete => "off") %>
-    &nbsp;
-    <span id="card_type" style="display:none;">
-      ( <span id="looks_like" ><%= Spree.t(:card_type_is) %> <span id="type"></span></span>
-        <span id="unrecognized"><%= Spree.t(:unrecognized_card_type) %></span>
-      )
-    </span>
-  </p>
-  <div class="row">
-    <div class="col-md-8 field" data-hook="card_expiration">
-      <%= label_tag "card_expiry", Spree.t(:expiration) %><span class="required">*</span><br />
-      <%= text_field_tag "#{param_prefix}[expiry]", '', :id => 'card_expiry', :class => "form-control required cardExpiry", :placeholder => "MM / YY" %>
-    </div>
-    <div class="col-md-4 field" data-hook="card_code">
-      <%= label_tag "card_code", Spree.t(:card_code) %><span class="required">*</span><br />
-      <%= text_field_tag "#{param_prefix}[verification_value]", '', options_hash.merge(:id => 'card_code', :class => 'form-control required cardCode', :size => 5) %>
-      <%= link_to "(#{Spree.t(:what_is_this)})", spree.content_path('cvv'), :target => '_blank', "data-hook" => "cvv_link", :id => "cvv_link" %>
-    </div>
-  </div>
-
-  <%= hidden_field_tag "#{param_prefix}[cc_type]", '', :id => "cc_type", :class => 'ccType' %>
-
-</div>
+<!-- <div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-md-4"> -->
+			<div class="panel panel-default credit-card-box">
+				
+				<div class="panel-heading display-table" >
+					<div class="row display-tr" >
+						<h3 class="panel-title display-td" >Payment Details</h3>
+						<div class="display-td" >
+							<img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+						</div>
+					</div>                    
+				</div>
+				
+				<div class="panel-body">
+					
+						<div class="col-xs-12">
+							<div class="form-group">
+							<% param_prefix = "payment_source[#{payment_method.id}]" %>
+								<%= label_tag "name_on_card_#{payment_method.id}", Spree.t(:name_on_card) %>
+								<div class="input-group">
+									<% options_hash = Rails.env.production? ? {:autocomplete => 'off'} : {} %>
+									<%= text_field_tag "#{param_prefix}[name]", "#{@order.billing_firstname} #{@order.billing_lastname}", { id: "name_on_card_#{payment_method.id}", :class => 'form-control required'} %>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+								</div>
+							</div>                            
+						</div>
+						
+						
+						<div class="col-xs-12">
+							<div class="form-group">
+							<% param_prefix = "payment_source[#{payment_method.id}]" %>
+								<%= label_tag "card_number", Spree.t(:card_number) %>
+								<div class="input-group">
+									<% options_hash = Rails.env.production? ? {:autocomplete => 'off'} : {} %>
+									<%= text_field_tag "#{param_prefix}[number]", '', options_hash.merge(:id => 'card_number', :class => 'form-control required cardNumber', :size => 19, :maxlength => 19, :autocomplete => "off") %>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-credit-card"></span></span>
+								</div>
+								<span id="card_type" style="display:none;">
+									( <span id="looks_like" ><%= Spree.t(:card_type_is) %> <span id="type"></span></span>
+									<span id="unrecognized"><%= Spree.t(:unrecognized_card_type) %></span>
+									)
+								</span>
+							</div>                            
+						</div>
+						
+						<div class="col-xs-7 col-md-7">
+							<div class="form-group">
+							<%= label_tag "card_expiry", Spree.t(:expiration) %>
+							<%= text_field_tag "#{param_prefix}[expiry]", '', :id => 'card_expiry', :class => "form-control required cardExpiry", :placeholder => "MM / YYYY" %>
+							</div>
+						</div>
+					
+						<div class="col-xs-5 col-md-5 pull-right">
+							<div class="form-group">
+								<%= label_tag "card_code", Spree.t(:card_code) %>
+								<%= text_field_tag "#{param_prefix}[verification_value]", '', options_hash.merge(:id => 'card_code', :class => 'form-control required cardCode', :size => 5) %>
+								<%= link_to "(#{Spree.t(:what_is_this)})", spree.content_path('cvv'), :target => '_blank', "data-hook" => "cvv_link", :id => "cvv_link" %>
+							</div>
+						</div>
+					
+					</div>
+					
+					<%= hidden_field_tag "#{param_prefix}[cc_type]", '', :id => "cc_type", :class => 'ccType' %>
+				
+					<div class="row" style="display:none;">
+						<div class="col-xs-12">
+							<p class="payment-errors"></p>
+						</div>
+					</div>
+					
+					
+				
+			</div>
+			<!-- CREDIT CARD FORM ENDS HERE -->
+			
+		<!-- </div>
+	</div>
+</div> -->

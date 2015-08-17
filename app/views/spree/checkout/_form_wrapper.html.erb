@@ -1,0 +1,69 @@
+<% if !@order.user and state == "address" %>
+<div class="panel panel-default" id="checkout_registration_panel">
+	
+	<div class="panel-heading">
+		<h4 class="panel-title">Already Have an Account? <small>
+			<button type="button" class="btn btn-link login-link" data-toggle="modal" data-target="#loginModal"><strong>Login</strong></button>
+			for express checkout</small>
+		</h4>
+	</div>
+	
+	<%# if state == @order.state %>
+	
+	<%# end %>
+	
+</div>
+<br/>
+<% end %>
+
+<% if @order.state != "confirm" %>
+	<% if state != "confirm" %>
+	<div class="panel panel-default" id="checkout_<%= state %>_panel">
+	
+		<div class="panel-heading">
+			<h4 class="panel-title"><%= state.capitalize %></h4>
+		</div>
+	
+		<% if state == @order.state %>
+	
+		<div class="panel-body panel-collapse collapse in <%# 'in' unless state != @order.state %>" id="checkout_<%= state %>_panel_body">
+		
+			<% content_for :errors do %>
+				<%= render :partial => 'spree/shared/error_messages', :locals => { :target => order } %>
+			<% end %>
+		
+			<%= form_for order, :url => update_checkout_path(state), :remote => (state != "payment"), :html => { :id => "checkout_form_#{state}" } do |x| %>
+				<%= render "spree/checkout/remote/#{state}", :form => x %>
+			<% end %>
+		</div>
+	
+		<% end %>
+	
+	</div>
+	<% end %>
+<% else %>
+	<% if state == "confirm" %>
+	<div class="panel panel-default" id="checkout_<%= state %>_panel">
+	
+		<div class="panel-heading">
+			<h4 class="panel-title"><%= state.capitalize %></h4>
+		</div>
+	
+		<% if state == @order.state %>
+	
+		<div class="panel-body panel-collapse collapse in <%# 'in' unless state != @order.state %>" id="checkout_<%= state %>_panel_body">
+		
+			<% content_for :errors do %>
+				<%= render :partial => 'spree/shared/error_messages', :locals => { :target => order } %>
+			<% end %>
+		
+			<%= form_for order, :url => update_checkout_path(state), :remote => (state != "payment"), :html => { :id => "checkout_form_#{state}" } do |x| %>
+				<%= render "spree/checkout/remote/#{state}", :form => x %>
+			<% end %>
+		</div>
+	
+		<% end %>
+	
+	</div>
+	<% end %>
+<% end %>

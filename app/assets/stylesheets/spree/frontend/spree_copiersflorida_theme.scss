@@ -314,23 +314,7 @@ div.well-break {
 	  text-transform: uppercase;
 	}
 }
-input.coupon_code {
-	max-width: 150px;
-	margin-right: 10px;
-}
 
-#checkout_form_wrapper {
-	margin-top: -5px;
-	.address_wrapper {
-		padding-right: 0;
-	}
-	.delivery_wrapper {
-		padding-right: 0;
-	}
-	.payment_wrapper {
-		padding-right: 0;
-	}
-}
 
 .outer {
 	margin-left: -5px;
@@ -412,4 +396,53 @@ input.coupon_code {
 		font-family: sans-serif;
 		color: rgb(119,119,119);
 	}
+}
+.alert {
+	padding: 0;
+	padding-left: 15px;
+}
+
+.btn {
+	border-radius: 1px;
+}
+.no-border {
+	border: none !important;
+}
+input.form-control {
+	border-radius: 1px;
+}
+.modal {
+	top: 25%;
+	.modal-content {
+		width: 100%;
+		border-radius: 0;
+		padding: 10px;
+		display: flex;
+		button.close {
+			position: absolute;
+		  top: 2px;
+		  right: 5px;
+		  background-color: rgb(255, 255, 255);
+			z-index: 999;
+		}
+		.modal-title {
+			margin-bottom: 10px;
+		}
+		.modal-body {
+			width: 100%;
+		}
+	}
+}
+.gold {
+	color:	#dad66; /*if no support for background-clip*/
+	background: -webkit-linear-gradient(transparent, transparent),
+	-webkit-linear-gradient(top, rgba(213,173,109,1) 0%, 
+	rgba(213,173,109,1) 26%, 
+	rgba(226,186,120,1) 35%, 
+	rgba(163,126,67,1) 45%, 
+	rgba(145,112,59,1) 61%, 
+	rgba(213,173,109,1) 100%);
+	background:	-o-linear-gradient(transparent, transparent);
+	-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

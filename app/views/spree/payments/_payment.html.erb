@@ -1,15 +1,26 @@
 <% source = payment.source %>
+
 <% if source.is_a?(Spree::CreditCard) %>
-  <span class="cc-type">
-    <% unless (cc_type = source.cc_type).blank? %>
-      <%# image_tag "credit_cards/icons/#{cc_type}.png" %>
-		<i class="fa fa-lg fa-cc-<%="#{cc_type}"%>"></i>
-    <% end %>
-    <% if source.last_digits %>
-      <%= Spree.t(:ending_in) %> <%= source.last_digits %>
-    <% end %>
-  </span>
-  <span class="full-name"><%= source.name %></span>
+	<span class="cc_type">
+	
+		<% unless (cc_type = source.cc_type).blank? %>
+			<%= image_tag "dark_color/#{cc_type}.png", :style => "height:60px" %>
+		<% end %>
+	
+		<span class="cc_name"><%= source.name %></span><br/>
+	
+		<% if source.last_digits %>
+			<% if cc_type == "american_express" %>
+				<span class="cc_number">****<%= source.last_digits %></span><br/>
+			<% else %>
+				<span class="cc_number">****<%= source.last_digits %></span><br/>
+			<% end %>
+		<% end %>
+		
+		<span class="cc_expiration"><%= "#{source.month} / #{source.year}" %></span>
+	
+	</span>
+	
 <% else %>
-  <%= content_tag(:span, payment.payment_method.name) %>
+	<%= content_tag(:span, payment.payment_method.name) %>
 <% end %>

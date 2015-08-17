@@ -1,0 +1,180 @@
+<div id="checkout_confirm" class="panel-collapse" role="tabpanel">
+	
+	<div class="panel-body">
+		
+		<div class="col-md-12">
+			<div class="row">
+				<% order = @order %>
+
+				<% if order.has_step?("address") %>
+				<div class="col-md-3">
+					<address class="confirm">
+						<h4>
+							<%= Spree.t(:billing_address) %>
+							<small><strong><%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless order.completed? %></strong></small>
+						</h4>
+						<%= render :partial => 'spree/shared/address', :locals => { :address => order.bill_address } %>
+					</address>
+				</div>
+
+
+				<% if order.has_step?("delivery") %>
+				<div class="col-md-3">
+					<address class="confirm">
+						<h4>
+							<%= Spree.t(:shipping_address) %>
+							<small><strong><%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless order.completed? %></strong></small>
+						</h4>
+						<%= render :partial => 'spree/shared/address', :locals => { :address => order.ship_address } %>
+					</address>
+				</div>
+				
+				<div class="col-md-3">
+					<div id="shipments" class="confirm">
+						<h4>
+							<%= Spree.t(:shipments) %>
+							<small><strong><%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:delivery) unless order.completed? %></strong></small>
+						</h4>
+						<% order.shipments.each do |shipment| %>
+							<%# Spree.t(:shipment_details, :stock_location => shipment.stock_location.name, :shipping_method => shipment.selected_shipping_rate.name) %>
+							<p>Shipping VIA <%= shipment.selected_shipping_rate.name %></p>
+							<p><%= order.special_instructions %></p>
+						<% end %>
+					</div>
+				</div>
+				
+				<div class="col-md-3">
+					<div id="payments" class="confirm">
+						<h4>
+							<%= Spree.t(:payment_information) %>
+							<small><strong><%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:payment) unless order.completed? %></strong></small>
+						</h4>
+						<% order.payments.valid.each do |payment| %>
+							<%= render payment %>
+						<% end %>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="confirm">
+						
+				
+					
+						<table class="table table-condensed table-hover" data-hook="stock-contents">
+
+							<colgroup>
+								<col style="width: 15%;" />
+								<col style="width: 56%;" />
+								<col style="width: 5%;" />
+								<col style="width: 12%;" />
+								<col style="width: 12%;" />
+							</colgroup>
+
+							<thead>
+								<tr>
+									<th class="text-left"><%= Spree.t(:SKU) %></th>
+									<th align='left'><%= Spree.t(:item) %></th>
+									<th class="text-center"><%= Spree.t(:qty) %></th>
+									<th class="text-right"><%= Spree.t(:price) %></th>
+									<th class="text-right"><%= Spree.t(:ext_price) %></th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<% order.line_items.each do |item| %>
+								<tr class="stock-item">
+									<td class="item-sku text-left"><%= item.variant.sku %>
+										<div id="<%= item.variant.id %>" class="image">
+											<%= mini_image(item.variant) %>
+										</div>
+									</td>
+									<td class="item-name"><%= truncate(item.variant.name, :length => 30, :escape => false) %>
+										<br/><small><%= truncate(item.variant.description, :length => 40, :escape => false) %></small>
+									</td>
+									<td class="item-qty text-center"><%= item.quantity %></td>
+									<td class="item-price text-right"><%= display_price(item.variant) %></td>
+									<td class="item-price text-right"><%= number_to_currency(item.quantity * item.variant.price) %></td>
+								</tr>
+								<% end %>
+							</tbody>
+
+							<tfoot id="order-total" data-hook="order_details_total">
+								<tr class="total">
+									<td colspan="2" class="no-border"></td>
+									<td colspan="2" class="text-right">Total:</td>
+									<td class="total text-right"><span id="order_total"><%= order.display_total.to_html %></span></td>
+								</tr>
+							</tfoot>
+
+							<tfoot id="subtotal" data-hook="order_details_subtotal">
+								<tr class="total" id="subtotal-row">
+									<td colspan="2" class="no-border"></td>
+									<td colspan="2" class="text-right">Subtotal:</td>
+									<td class="total text-right"><span><%= order.display_item_total.to_html %></span></td>
+								</tr>
+							</tfoot>
+
+							<% if order.line_item_adjustments.exists? %>
+								<% if order.all_adjustments.promotion.eligible.exists? %>
+									<tfoot id="price-adjustments" data-hook="order_details_price_adjustments">
+									<% order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments| %>
+										<tr class="total">
+											<td colspan="2" class="no-border"></td>
+											<td colspan="2" class="text-right"><%= Spree.t(:promotion) %>: <strong><%= label %></strong></td>
+											<td class="total text-right"><span><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency) %></span></td>
+										</tr>
+									<% end %>
+									</tfoot>
+								<% end %>
+							<% end %>
+
+							<tfoot id='shipment-total'>
+							<% order.shipments.group_by { |s| s.selected_shipping_rate.name }.each do |name, shipments| %>
+							<tr class="total" data-hook='shipment-row'>
+							<td colspan="2" class="no-border"></td>
+							<td colspan="2" class="text-right">Freight / Shipping :</td>
+							<td class="total text-right"><span><%= Spree::Money.new(shipments.sum(&:discounted_cost), currency: order.currency).to_html %></span></td>
+							</tr>
+							<% end %>
+							</tfoot>
+
+							<% if order.all_adjustments.tax.exists? %>
+							<tfoot id="tax-adjustments" data-hook="order_details_tax_adjustments">
+							<% order.all_adjustments.tax.group_by(&:label).each do |label, adjustments| %>
+							<tr class="total">
+							<td colspan="2" class="no-border"></td>
+							<td colspan="2" class="text-right">Sales Tax:</td>
+							<td class="total text-right"><span><%= Spree::Money.new(adjustments.sum(&:amount), currency: order.currency) %></span></td>
+							</tr>
+							<% end %>
+							</tfoot>
+							<% end %>
+						</table>
+
+					</div>
+
+				</div>
+
+				<%= render(:partial => 'spree/shared/shipment_tracking', :locals => {:order => order}) if order.shipped? %>
+
+				<% end %>
+
+				<% end %>
+
+				
+				<% if order.complete? %>
+				<div id="status">
+					<h4>Order Status</h4>
+					<%= order.state %><br/>
+					<%= order.payment_state %><br/>
+					<%= order.shipment_state %>
+				</div>
+				<% end %>
+				
+			</div>
+			<%= form.submit "Place Order", :class => 'btn btn-success pull-right' %>
+		</div>
+		
+	</div>
+	
+</div>

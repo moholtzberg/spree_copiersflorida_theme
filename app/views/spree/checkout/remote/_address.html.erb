@@ -1,0 +1,47 @@
+<div id="checkout_address" class="panel-collapse" role="tabpanel">
+	
+	<div class="panel-body">
+		
+		<div id="billing" class="billing_wrapper" data-hook="billing_fieldset_wrapper">
+			
+			<h4 class="address_wrapper_header">Billing Address</h4>
+			
+			<%= form.fields_for :bill_address do |f| %>
+			<%= render :partial => "spree/address/form", :locals => {:address_type => 'billing', :address => @order.bill_address, :form => f} %>
+			<% end %>
+			
+			<div class="inner email col-md-12">
+				<div class="form-group col-md-6" id="email">
+					<%= form.label :email, Spree.t(:email) %><span class="required">*</span><br />
+					<%= form.text_field :email, :class => "required form-control" %>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div id="shipping" class="shipping_wrapper" data-hook="shipping_fieldset_wrapper">
+			
+			<h4 class="address_wrapper_header">Shipping Address</h4>
+			
+			<%= form.fields_for :ship_address do |f| %>
+			<%= render :partial => "spree/address/form", :locals => {:address_type => 'shipping', :address => @order.ship_address, :form => f} %>
+			<% end %>
+			
+		</div>
+		
+		<div class="col-md-12">
+			
+			<span class="field checkbox" data-hook="use_billing">
+			<%= label_tag :order_use_billing, :id => 'use_billing' do %>
+				<%= check_box_tag 'order[use_billing]', '1', @order.shipping_eq_billing_address? %>
+				<%= Spree.t(:use_billing_address) %>
+			<% end %>
+			</span>
+			
+			<%= form.submit "Save & Continue", :class => 'btn btn-success pull-right' %>
+			
+		</div>
+	
+	</div>
+	
+</div>

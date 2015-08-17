@@ -1,4 +1,4 @@
-<div class="well well-sm text-center">
+<div id="checkout_summary" class="well well-sm text-center">
 	
 	<h3 class="text-center cart-summary">Cart Summary</h3>
 	
@@ -50,3 +50,16 @@ Proceed To Payment!
 	<% end %>	
 	
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			
+			<div id="myModalBody" class="modal-body" data-hook='coupon_code'>
+				
+				<%= render :partial => "spree/checkout/coupon_form" %>
+			</div>
+			
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
