@@ -8,4 +8,6 @@ Spree::Core::Engine.add_routes do
     end
   end
   post '/inquiries' => 'inquiries#create'
+  get "/apply_coupons" => "coupons#show"
+  patch "/apply_coupons" => "coupons#update"
 end
