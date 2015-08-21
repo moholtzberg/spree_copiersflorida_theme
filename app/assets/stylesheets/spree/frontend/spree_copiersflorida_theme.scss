@@ -397,6 +397,16 @@ div.well-break {
 		color: rgb(119,119,119);
 	}
 }
+.logos {
+	display: flex;
+	justify-content: space-around;
+	img.logo {
+		margin: 5px;
+		opacity: 0.7;
+		filter: grayscale(70%);
+		-webkit-filter: grayscale(70%);
+	}
+}
 .alert {
 	padding: 0;
 	padding-left: 15px;

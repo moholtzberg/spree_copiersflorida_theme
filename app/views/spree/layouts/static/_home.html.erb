@@ -8,29 +8,45 @@
 		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
 		<li data-target="#carousel-example-generic" data-slide-to="1"></li>
 		<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 	</ol>
 	
 	<div class="carousel-inner" role="listbox">
 		
 		<div class="item active">
-			<img src="http://placehold.it/853x285/0ff/666?text=FAST FREE SHIPPING">
+			<%= image_tag("banner_123_toner") %>
+			<!--
 			<div class="carousel-caption">
-				<h3>Enjoy fast free shipping on all orders over $50!</h3>
+				<h3></h3>
 			</div>
+			-->
 		</div>
 		
 		<div class="item">
-			<img src="http://placehold.it/853x285/f0f/666?text=SATISFACTION GUARANTEED">
+			<%= image_tag("banner_free_shipping") %>
+			<!--
 			<div class="carousel-caption">
-				<h3>Your satisfaction is guaranteed 100% for 2 years on all products!</h3>
+				<h3></h3>
 			</div>
+			-->
 		</div>
 		
 		<div class="item">
-			<img src="http://placehold.it/853x285/ff0/666?text=1 STOP SHOP">
+			<%= image_tag("banner_20_20_guarantee") %>
+			<!--
 			<div class="carousel-caption">
-				<h3>Your 1 stop shop for copiers, printers, toner and supplies!</h3>
+				<h3></h3>
 			</div>
+			-->
+		</div>
+		
+		<div class="item">
+			<%= image_tag("banner_one_stop_shop") %>
+			<!--
+			<div class="carousel-caption">
+				<h3></h3>
+			</div>
+			-->
 		</div>
 	</div>
 	
@@ -50,32 +66,75 @@
 </div>
 
 <div class="col-md-12 logos">
-	
-	<% ["Brother", "Canon", "Copystar", "Epson"].each do |brand| %>
-
-		<% found_brand = Spree::Taxon.find_by(:name => brand) %>
-		
-		<% unless found_brand.nil?%>
-	
-			<%= link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-3") do %>
-				<%= image_tag(found_brand.icon(:normal), :class => "logo") %>
-			<% end %>
-			
-		<% end %>
-		
+	<!-- 
+	<%= link_to("/t/brand/canon", :class => "logo col-sm-4 col-md-3 text-center") do %>
+		<%= image_tag("canon_logo", :height => "35px", :class => "logo") %>
 	<% end %>
 	
-	<% ["HP", "Konica Minolta", "3M"].each do |brand| %>
-
-		<% found_brand = Spree::Taxon.find_by(:name => brand) %>
-		
-		<% unless found_brand.nil?%>
-	
-			<%= link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-4") do %>
-				<%= image_tag(found_brand.icon(:normal), :class => "logo #{cycle('pull-right', '','pull-left')}") %>
-			<% end %>
-			
-		<% end %>
-		
+	<%= link_to("/t/brand/brother", :class => "logo col-sm-4 col-md-3 text-center") do %>
+		<%= image_tag("brother_logo", :height => "35px", :class => "logo") %>
 	<% end %>
+	
+	
+	<%= link_to("/t/brand/ricoh", :class => "logo col-sm-4 col-md-3 text-center") do %>
+		<%= image_tag("ricoh_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	
+	<%= link_to("/t/brand/epson", :class => "logo col-sm-4 col-md-3 text-center") do %>
+		<%= image_tag("epson_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	
+	<%# link_to("/t/brand/epson", :class => "logo col-sm-4 col-md-3") do %>
+		<%# image_tag("epson_logo", :height => "35px", :class => "logo") %>
+	<%# end %>
+	
+	<%= link_to("/t/brand/oki", :class => "logo col-sm-4 col-md-2 text-center") do %>
+		<%= image_tag("oki_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	
+	<%= link_to("/t/brand/samsung", :class => "logo col-sm-4 col-md-3 text-center") do %>
+		<%= image_tag("samsung_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	
+	<%= link_to("/t/brand/kyocera-mita", :class => "logo col-sm-4 col-md-3 text-center") do %>
+		<%= image_tag("kyocera-mita_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	
+	<%= link_to("/t/brand/xerox", :class => "logo col-sm-4 col-md-2 text-center") do %>
+		<%= image_tag("xerox_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	
+	<%= link_to("/t/brand/hp", :class => "logo col-sm-4 col-md-2 text-center") do %>
+		<%= image_tag("hp_logo", :height => "35px", :class => "logo") %>
+	<% end %>
+	-->
+	<%= image_tag("canon_logo", :height => "35px", :class => "logo") %>
+	<%= image_tag("hp_logo", :height => "35px", :class => "logo") %>
+	<%= image_tag("ricoh_logo", :height => "35px", :class => "logo") %>
+	<%= image_tag("brother_logo", :height => "35px", :class => "logo") %>
+	
+	<%# image_tag("oki_logo", :height => "35px", :class => "logo") %>
+	<%# image_tag("epson_logo", :height => "35px", :class => "logo") %>
+	<%= image_tag("kyocera-mita_logo", :height => "35px", :class => "logo") %>
+	<%= image_tag("samsung_logo", :height => "35px", :class => "logo") %>
+	<%= image_tag("xerox_logo", :height => "35px", :class => "logo") %>
+	
+	
+	<%# ["Brother", "Canon", "Copystar", "Epson"].each do |brand| %>
+		<%# found_brand = Spree::Taxon.find_by(:name => brand, :parent_id => 2) %>
+		<%# unless found_brand.nil?%>
+			<%# link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-3") do %>
+				<%# image_tag(found_brand.icon(:normal), :class => "logo") %>
+			<%# end %>
+		<%# end %>	
+	<%# end %>
+	
+	<%# ["HP", "Konica Minolta", "3M"].each do |brand| %>
+		<%# found_brand = Spree::Taxon.find_by(:name => brand) %>
+		<%# unless found_brand.nil?%>
+			<%# link_to(seo_url(found_brand), :class => "logo col-sm-4 col-md-4") do %>
+				<%# image_tag(found_brand.icon(:normal), :class => "logo #{cycle('pull-right', '','pull-left')}") %>
+			<%# end %>
+		<%# end %>
+	<%# end %>
 </div>
