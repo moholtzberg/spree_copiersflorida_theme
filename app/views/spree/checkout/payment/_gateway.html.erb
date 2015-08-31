@@ -58,6 +58,37 @@
 	}
 </style>
 
+<% if @payment_sources.present? %>
+<div class="card_options">
+	<%= radio_button_tag 'use_existing_card', 'yes' %>
+	<label for="use_existing_card_yes">Use an existing card on file</label>
+	<br/>
+	<%= radio_button_tag 'use_existing_card', 'no', true %>
+	<label for="use_existing_card_no">Use a new card / payment method</label>
+</div>
+
+<div id="existing_cards">
+	<p class="field" data-hook="existing_cards">
+		<table class="existing-credit-card-list">
+			<tbody>
+			<% @payment_sources.each do |card| %>
+			<tr id="<%= dom_id(card,'spree')%>" class="<%= cycle('even', 'odd') %>">
+				<td>&nbsp;<%= image_tag "dark_color/#{card.cc_type}.png", :style => "height:22px" %>&nbsp;</td>
+				<td>&nbsp;<%= card.name %>&nbsp;</td>
+				<td>&nbsp;****<%= card.last_digits %>&nbsp;</td>
+				<td>&nbsp;<%= DateTime.new(card.year, card.month).strftime('%m') %>/<%= card.year %>&nbsp;</td>
+				<td>&nbsp;
+				<%= radio_button_tag "order[existing_card]", card.id, (card == @payment_sources.first), { class: "existing-cc-radio" }  %>
+				&nbsp;</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	</p>
+</div>
+<hr/>
+<% end %>
+
 <!-- <div class="container">
 	<div class="row">
 		<div class="col-xs-12 col-md-4"> -->

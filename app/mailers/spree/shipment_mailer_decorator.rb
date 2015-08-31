@@ -11,12 +11,21 @@ Spree::ShipmentMailer.class_eval do
     puts "=================="
     mg_client = Mailgun::Client.new(SECRET["MAILGUN_API_KEY"])
     message_params = {
-      :to => @order.email,
+      :to => @shipment.order.email,
       :from => 'orders@copiersfliorida.com',
       :subject => subject,
-      :html => render_to_string("spree/mailers/shipment_email", :layout => "spree/layouts/base_email").to_str
+      :html => render_to_string("spree/mailers/shipment_email", :layout => "spree/layouts/base_email").to_str,
+      "o:tracking" => false
+    }
+    puts mg_client.send_message("mg.copiersflorida.com", message_params)
+    message_params = {
+      :to => 'moshe@copiersflorida.com',
+      :from => 'orders@copiersfliorida.com',
+      :subject => "[COPY] #{subject}",
+      :html => render_to_string("spree/mailers/shipment_email", :layout => "spree/layouts/base_email").to_str,
+      "o:tracking" => false
     }
     puts mg_client.send_message("mg.copiersflorida.com", message_params)
   end
-
+  
 end
